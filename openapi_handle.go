@@ -452,15 +452,16 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string) {
 	if schemeRef == nil {
 		schemeRef = &openapi3.SchemaRef{}
 	}
+	if schemeRef.Value == nil {
+		schemeRef.Value = &openapi3.Schema{}
+	}
 	tempTypes := ""
 	// 判断是否是数组
 	tempTypes = strings.TrimPrefix(types, "[]")
 	if tempTypes != types {
 		types = tempTypes
-		schemeRef.Value = &openapi3.Schema{
-			Type:  "array",
-			Items: &openapi3.SchemaRef{},
-		}
+		schemeRef.Value.Type = "array"
+		schemeRef.Value.Items = &openapi3.SchemaRef{}
 		o.setType(schemeRef.Value.Items, types)
 		return
 	}
@@ -469,20 +470,15 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string) {
 	if tempTypes != types {
 		mapTypes := ""
 		mapTypes, types = getIndexFirst(tempTypes, "]")
-		schemeRef.Value = &openapi3.Schema{
-			Type: "object",
-			Properties: map[string]*openapi3.SchemaRef{
-				mapTypes: {},
-			},
+		schemeRef.Value.Type = "object"
+		schemeRef.Value.Properties = map[string]*openapi3.SchemaRef{
+			mapTypes: {},
 		}
 		o.setType(schemeRef.Value.Properties[mapTypes], types)
 		return
 	}
 	strInfo := o.structs[types]
 	if strInfo == nil {
-		if schemeRef.Value == nil {
-			schemeRef.Value = &openapi3.Schema{}
-		}
 		schemeRef.Value.Type = "string"
 		schemeRef.Value.Format = types
 	} else {

@@ -318,6 +318,8 @@ components:
                     type: string
             type: object
         github.com.goodluckxu-go.openapi.examples.ExampleRes:
+            description: |
+                ExampleRes 是测试结果返回
             properties:
                 id:
                     description: 主键
@@ -332,14 +334,12 @@ components:
             description: |
                 Test 测试结构体注释
             properties:
-                id:
-                    description: 主键
-                    format: int
-                    type: string
-                name:
-                    description: 名称
-                    format: string
-                    type: string
+                map:
+                    description: 对象
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
+                    type: object
             type: object
     securitySchemes:
         projectID:
@@ -355,7 +355,7 @@ components:
             name: api_key
             type: apiKey
 externalDocs:
-    description: "Find\tout more about Swagger"
+    description: Find out more about Swagger
     url: http://swagger.io
 info:
     contact:
@@ -457,8 +457,8 @@ paths:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
                     description: 错误信息
             security:
-                - projectID: []
                 - token: []
+                - projectID: []
             summary: 退出登录
             tags:
                 - admin

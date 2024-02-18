@@ -1,5 +1,6 @@
 package examples
 
+// ExampleRes 是测试结果返回
 type ExampleRes struct {
 	ID   int    `json:"id"`   // 主键
 	Name string `json:"name"` // 名称
@@ -12,7 +13,7 @@ type ExampleBody struct {
 
 // Test 测试结构体注释
 type Test struct {
-	ExampleRes
+	Map map[string]ExampleRes `json:"map"` // 对象
 }
 
 // GetList openapi
