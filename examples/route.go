@@ -10,6 +10,10 @@ type ExampleBody struct {
 	Password string `json:"password"`  // 密码
 }
 
+type Test struct {
+	ExampleRes
+}
+
 // GetList openapi
 // @summary: 获取用户列表
 // @description: 用户列表接口需要授权
@@ -17,7 +21,8 @@ type ExampleBody struct {
 // @param: in=query; name=name; type=string; desc=用户名称
 // @param: in=query; name=sex; type=string; desc=用户性别
 // @res: status=200; in=application/json; content=[]examples.ExampleRes; desc=返回信息
-// @res: status=404; in=application/json; content=examples.ExampleRes; desc=错误信息
+// @res: status=404; in=application/json; content=github.com/getkin/kin-openapi/openapi3.T; desc=错误信息
+// @res: status=500; in=application/json; content=examples.Test; desc=错误信息
 // @security: token;projectID
 // @router: method=get;path=/user/list
 func GetList() {

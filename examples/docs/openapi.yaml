@@ -1,22 +1,290 @@
 components:
     schemas:
+        github.com.getkin.kin-openapi.openapi3.Components:
+            properties:
+                callbacks:
+                    format: github.com/getkin/kin-openapi/openapi3.Callbacks
+                    type: string
+                examples:
+                    format: github.com/getkin/kin-openapi/openapi3.Examples
+                    type: string
+                headers:
+                    format: github.com/getkin/kin-openapi/openapi3.Headers
+                    type: string
+                links:
+                    format: github.com/getkin/kin-openapi/openapi3.Links
+                    type: string
+                parameters:
+                    format: github.com/getkin/kin-openapi/openapi3.ParametersMap
+                    type: string
+                requestBodies:
+                    format: github.com/getkin/kin-openapi/openapi3.RequestBodies
+                    type: string
+                responses:
+                    format: github.com/getkin/kin-openapi/openapi3.ResponseBodies
+                    type: string
+                schemas:
+                    format: github.com/getkin/kin-openapi/openapi3.Schemas
+                    type: string
+                securitySchemes:
+                    format: github.com/getkin/kin-openapi/openapi3.SecuritySchemes
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Contact:
+            properties:
+                email:
+                    format: string
+                    type: string
+                name:
+                    format: string
+                    type: string
+                url:
+                    format: string
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.ExternalDocs:
+            properties:
+                description:
+                    format: string
+                    type: string
+                url:
+                    format: string
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Info:
+            properties:
+                contact:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Contact'
+                description:
+                    format: string
+                    type: string
+                license:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.License'
+                termsOfService:
+                    format: string
+                    type: string
+                title:
+                    format: string
+                    type: string
+                version:
+                    format: string
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.License:
+            properties:
+                name:
+                    format: string
+                    type: string
+                url:
+                    format: string
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Operation:
+            properties:
+                callbacks:
+                    format: github.com/getkin/kin-openapi/openapi3.Callbacks
+                    type: string
+                deprecated:
+                    format: bool
+                    type: string
+                description:
+                    format: string
+                    type: string
+                externalDocs:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs'
+                operationId:
+                    format: string
+                    type: string
+                parameters:
+                    format: github.com/getkin/kin-openapi/openapi3.Parameters
+                    type: string
+                requestBody:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.RequestBodyRef'
+                responses:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Responses'
+                security:
+                    format: github.com/getkin/kin-openapi/openapi3.SecurityRequirements
+                    type: string
+                servers:
+                    format: github.com/getkin/kin-openapi/openapi3.Servers
+                    type: string
+                summary:
+                    format: string
+                    type: string
+                tags:
+                    items:
+                        format: string
+                        type: string
+                    type: array
+            type: object
+        github.com.getkin.kin-openapi.openapi3.PathItem:
+            properties:
+                $ref:
+                    format: string
+                    type: string
+                connect:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                delete:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                description:
+                    format: string
+                    type: string
+                get:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                head:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                options:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                parameters:
+                    format: github.com/getkin/kin-openapi/openapi3.Parameters
+                    type: string
+                patch:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                post:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                put:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+                servers:
+                    format: github.com/getkin/kin-openapi/openapi3.Servers
+                    type: string
+                summary:
+                    format: string
+                    type: string
+                trace:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Paths:
+            properties:
+                m:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem'
+                    type: object
+            type: object
+        github.com.getkin.kin-openapi.openapi3.RequestBody:
+            properties:
+                content:
+                    format: github.com/getkin/kin-openapi/openapi3.Content
+                    type: string
+                description:
+                    format: string
+                    type: string
+                required:
+                    format: bool
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.RequestBodyRef:
+            properties:
+                Ref:
+                    format: string
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.RequestBody'
+                extra:
+                    items:
+                        format: string
+                        type: string
+                    type: array
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Response:
+            properties:
+                content:
+                    format: github.com/getkin/kin-openapi/openapi3.Content
+                    type: string
+                description:
+                    format: string
+                    type: string
+                headers:
+                    format: github.com/getkin/kin-openapi/openapi3.Headers
+                    type: string
+                links:
+                    format: github.com/getkin/kin-openapi/openapi3.Links
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.ResponseRef:
+            properties:
+                Ref:
+                    format: string
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Response'
+                extra:
+                    items:
+                        format: string
+                        type: string
+                    type: array
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Responses:
+            properties:
+                m:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ResponseRef'
+                    type: object
+            type: object
+        github.com.getkin.kin-openapi.openapi3.T:
+            properties:
+                components:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Components'
+                externalDocs:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs'
+                info:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Info'
+                openapi:
+                    format: string
+                    type: string
+                paths:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Paths'
+                security:
+                    format: github.com/getkin/kin-openapi/openapi3.SecurityRequirements
+                    type: string
+                servers:
+                    format: github.com/getkin/kin-openapi/openapi3.Servers
+                    type: string
+                tags:
+                    format: github.com/getkin/kin-openapi/openapi3.Tags
+                    type: string
+                visited:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.visitedComponent'
+            type: object
+        github.com.getkin.kin-openapi.openapi3.visitedComponent:
+            properties:
+                header:
+                    properties:
+                        github.com/getkin/kin-openapi/openapi3.Header:
+                            type: string
+                    type: object
+                schema:
+                    properties:
+                        github.com/getkin/kin-openapi/openapi3.Schema:
+                            type: string
+                    type: object
+            type: object
         github.com.goodluckxu-go.openapi.examples.ExampleBody:
             properties:
                 password:
-                    description: 密码
+                    format: string
                     type: string
                 user_name:
-                    description: 用户名称
+                    format: string
                     type: string
             type: object
         github.com.goodluckxu-go.openapi.examples.ExampleRes:
             properties:
                 id:
-                    description: 主键
                     format: int
-                    type: integer
+                    type: string
                 name:
-                    description: 名称
+                    format: string
+                    type: string
+            type: object
+        github.com.goodluckxu-go.openapi.examples.Test:
+            properties:
+                id:
+                    format: int
+                    type: string
+                name:
+                    format: string
                     type: string
             type: object
     securitySchemes:
@@ -167,7 +435,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
+                                $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.T'
+                    description: 错误信息
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.Test'
                     description: 错误信息
             security:
                 - token: []

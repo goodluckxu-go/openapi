@@ -7,9 +7,9 @@ import (
 )
 
 func GenerateOpenAPI(rootDir, routeDir, docPath, outDir string) {
-	mod := modHandle{}
+	modPathMap = modHandle{}
 	var err error
-	projectModName, err = mod.load(rootDir)
+	projectModName, err = modPathMap.load(rootDir)
 	if err != nil {
 		log.Fatal(err)
 	}

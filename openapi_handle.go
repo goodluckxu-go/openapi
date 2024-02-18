@@ -10,9 +10,10 @@ import (
 )
 
 type openapiHandle struct {
-	t       *openapi3.T
-	structs map[string]*structInfo
-	schemas openapi3.Schemas
+	t             *openapi3.T
+	structs       map[string]*structInfo
+	schemas       openapi3.Schemas
+	importStructs map[string]bool
 }
 
 func (o *openapiHandle) load(routeDir, docPath string) {
@@ -21,6 +22,7 @@ func (o *openapiHandle) load(routeDir, docPath string) {
 	}
 	o.structs = map[string]*structInfo{}
 	o.schemas = map[string]*openapi3.SchemaRef{}
+	o.importStructs = map[string]bool{}
 	o.generateDoc(docPath)
 	o.generateRoute(routeDir)
 }
@@ -40,6 +42,73 @@ func (o *openapiHandle) noRepeatStructs() {
 	}
 }
 
+func (o *openapiHandle) addImportStruct(v interface{}) {
+	vMap, _ := v.(map[string]interface{})
+	bodyMap, _ := vMap["@body"].(map[string]interface{})
+	content, _ := bodyMap["content"].(string)
+	if content != "" {
+		o.importStructs[strings.TrimPrefix(content, "[]")] = true
+	}
+	resList, _ := vMap["@res"].([]map[string]interface{})
+	for _, v1Map := range resList {
+		content, _ = v1Map["content"].(string)
+		if content != "" {
+			o.importStructs[strings.TrimPrefix(content, "[]")] = true
+		}
+	}
+}
+
+func (o *openapiHandle) handleImportStruct() {
+	// 处理重复
+	for k, _ := range o.importStructs {
+		if o.structs[k] != nil {
+			delete(o.importStructs, k)
+		}
+	}
+	// 对比mod文件获取引入文件
+	fileMap := map[string]bool{}
+	for k, _ := range modPathMap {
+		for k1, _ := range o.importStructs {
+			other := strings.TrimPrefix(k1, k)
+			if other == k1 || fileMap[k] {
+				continue
+			}
+			fileMap[k] = true
+		}
+	}
+	fileModList := map[string][]string{}
+	for k, _ := range fileMap {
+		files := fileHandle{}
+		files.load(modPathMap[k], true)
+		fileModList[k] = append(fileModList[k], files...)
+	}
+	for k, vList := range fileModList {
+		for _, v1 := range vList {
+			structHandle := new(astHandle)
+			_ = structHandle.load(v1, k, astLoadTypeStruct, modPathMap[k])
+			for k2, v2 := range structHandle.structs {
+				o.structs[k2] = v2
+			}
+		}
+	}
+}
+
+func (o *openapiHandle) handleNoStructFieldName() {
+	for k, v := range o.structs {
+		var fieldNameList []structField
+		for _, fieldInfo := range v.list {
+			if fieldInfo.fieldName == "" {
+				if o.structs[fieldInfo.fieldType] != nil {
+					fieldNameList = append(fieldNameList, o.structs[fieldInfo.fieldType].list...)
+				}
+			} else {
+				fieldNameList = append(fieldNameList, fieldInfo)
+			}
+		}
+		o.structs[k].list = fieldNameList
+	}
+}
+
 func (o *openapiHandle) generateRoute(routeDir string) {
 	fileList := fileHandle{}
 	fileList.load(routeDir, true)
@@ -55,6 +124,8 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 				log.Fatal("路由重复")
 			}
 			routes[k] = v
+			// 增加路由引入结构体
+			o.addImportStruct(v)
 		}
 		for k, v := range asts.structs {
 			o.structs[k] = v
@@ -64,6 +135,8 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 		return
 	}
 	o.noRepeatStructs()
+	o.handleImportStruct()
+	o.handleNoStructFieldName()
 	if o.t.Paths == nil {
 		o.t.Paths = &openapi3.Paths{}
 	}
@@ -238,30 +311,7 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 					for k2, v2 := range v1Map {
 						switch k2 {
 						case "content":
-							structTitle := toString(v2)
-							strInfo := o.structs[structTitle]
-							if strInfo == nil {
-								tempTitle := strings.TrimPrefix(structTitle, "[]")
-								if tempTitle != structTitle {
-									strInfo = o.structs[tempTitle]
-								}
-								if strInfo == nil {
-									if mediaType.Schema.Value == nil {
-										mediaType.Schema.Value = &openapi3.Schema{}
-									}
-									mediaType.Schema.Value.Type = "string"
-									mediaType.Schema.Value.Format = structTitle
-								} else {
-									mediaType.Schema.Value = &openapi3.Schema{
-										Type: "array",
-										Items: &openapi3.SchemaRef{
-											Ref: o.setScheme(strInfo),
-										},
-									}
-								}
-							} else {
-								mediaType.Schema.Ref = o.setScheme(strInfo)
-							}
+							o.setType(mediaType.Schema, toString(v2))
 						case "desc":
 							response.Value.Description = toPtr(toString(v2))
 						}
@@ -385,6 +435,49 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 	}
 }
 
+func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string) {
+	if schemeRef == nil {
+		schemeRef = &openapi3.SchemaRef{}
+	}
+	tempTypes := ""
+	// 判断是否是数组
+	tempTypes = strings.TrimPrefix(types, "[]")
+	if tempTypes != types {
+		types = tempTypes
+		schemeRef.Value = &openapi3.Schema{
+			Type:  "array",
+			Items: &openapi3.SchemaRef{},
+		}
+		o.setType(schemeRef.Value.Items, types)
+		return
+	}
+	// 判断是否是对象
+	tempTypes = strings.TrimPrefix(types, "map[")
+	if tempTypes != types {
+		mapTypes := ""
+		mapTypes, types = getIndexFirst(tempTypes, "]")
+		schemeRef.Value = &openapi3.Schema{
+			Type: "object",
+			Properties: map[string]*openapi3.SchemaRef{
+				mapTypes: {},
+			},
+		}
+		o.setType(schemeRef.Value.Properties[mapTypes], types)
+		return
+	}
+	strInfo := o.structs[types]
+	if strInfo == nil {
+		if schemeRef.Value == nil {
+			schemeRef.Value = &openapi3.Schema{}
+		}
+		schemeRef.Value.Type = "string"
+		schemeRef.Value.Format = types
+	} else {
+		schemeRef.Ref = o.setScheme(strInfo)
+	}
+
+}
+
 func (o *openapiHandle) setScheme(strInfo *structInfo) (refUrl string) {
 	refUrl = "#/components/schemas/" + strInfo.name
 	if o.schemas[strInfo.name] != nil {
@@ -398,16 +491,8 @@ func (o *openapiHandle) setScheme(strInfo *structInfo) (refUrl string) {
 	}
 	for _, v2 := range strInfo.list {
 		fieldName := v2.fieldName
-		filedType := o.getType(v2.fieldType)
-		fieldSchemaRef := &openapi3.SchemaRef{
-			Value: &openapi3.Schema{
-				Type:        filedType,
-				Description: v2.comment,
-			},
-		}
-		if filedType != v2.fieldType {
-			fieldSchemaRef.Value.Format = v2.fieldType
-		}
+		fieldSchemaRef := &openapi3.SchemaRef{}
+		o.setType(fieldSchemaRef, v2.fieldType)
 		var requiredList []string
 		for k3, v3 := range v2.extends {
 			switch k3 {

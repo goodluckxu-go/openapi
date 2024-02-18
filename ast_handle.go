@@ -44,6 +44,8 @@ type astHandle struct {
 	filePath       string
 	structPrefix   string
 	uniqueFieldMap map[string]bool
+	modDir         string
+	sameStructs    map[string]string
 }
 
 type strCutInfo struct {
@@ -51,10 +53,13 @@ type strCutInfo struct {
 	other string // 其他
 }
 
-func (a *astHandle) load(filePath string, modName string, loadType astLoadType) (err error) {
+func (a *astHandle) load(filePath string, modName string, loadType astLoadType, modDir ...string) (err error) {
 	filePath, err = filepath.Abs(filePath)
 	if err != nil {
 		return
+	}
+	if len(modDir) > 0 {
+		a.modDir, _ = filepath.Abs(modDir[0])
 	}
 	a.filePath = filePath
 	a.modName = modName
@@ -374,7 +379,10 @@ func (a *astHandle) structImport() {
 	if a.modName == "" {
 		return
 	}
-	pwd, _ := os.Getwd()
+	pwd := a.modDir
+	if pwd == "" {
+		pwd, _ = os.Getwd()
+	}
 	a.structPrefix = strings.TrimPrefix(a.filePath, pwd)
 	a.structPrefix = filepath.Dir(a.structPrefix)
 	a.structPrefix = filepath.Join(a.modName, a.structPrefix)
@@ -440,6 +448,9 @@ func (a *astHandle) parseStruct(typeSpec *ast.TypeSpec) (strInfo *structInfo, bl
 				}
 				fieldInfo.extends[k1] = v1List
 			}
+		}
+		if fieldInfo.fieldName == "-" {
+			continue
 		}
 		// 获取注释
 		if field.Comment != nil {

@@ -10,4 +10,5 @@ const (
 
 var (
 	projectModName = ""
+	modPathMap     modHandle
 )
