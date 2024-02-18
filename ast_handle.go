@@ -29,8 +29,9 @@ type structField struct {
 }
 
 type structInfo struct {
-	name string
-	list []structField
+	name    string
+	comment string
+	list    []structField
 }
 
 type astHandle struct {
@@ -183,7 +184,6 @@ func (a *astHandle) parseComments(comment *ast.CommentGroup, validMap map[string
 	return
 }
 
-// 目前就只有两层
 func (a *astHandle) parseCommentLine(
 	pos token.Pos,
 	rsMap map[string]interface{},
@@ -365,6 +365,9 @@ func (a *astHandle) parseStructs() {
 				strInfo := &structInfo{}
 				if strInfo, ok = a.parseStruct(typeSpce); !ok {
 					continue
+				}
+				if genDecl.Doc != nil {
+					strInfo.comment = genDecl.Doc.Text()
 				}
 				strName := strInfo.name
 				strInfo.name = strings.ReplaceAll(a.structPrefix+strName, "/", ".")

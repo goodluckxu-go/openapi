@@ -88,5 +88,28 @@ func Login() {
 - content 返回内容，以.分割，前缀为go.mod查找的命名空间名称(支持github等，必须引入)，后缀为结构体名称。前缀可以是结构体package的名称，这种情况必须不能重复
 - desc 返回内容描述
 
+### 结构体注释说明
+~~~go
+package main
+
+// LoginRequest 结构体注释
+type LoginRequest struct {
+    Account string `json:"account" yaml:"account" required:"true" minimum:"10"` // 账号注释
+	Password string `json:"password" yaml:"password" openapi:"required;minimum=10"` // 密码注释
+}
+~~~
+
+#### 结构体的标签可以使用 minimum:"10" 和 openapi:"minimum=10" 这两种方式，字段有
+- minimum type类型是integer时的最小值
+- maximum type类型是integer时的最大值
+- minLength type类型是string时的最小长度
+- maxLength type类型是string时的最大长度
+- minItems type类型是slice时的最小长度
+- maxItems type类型是slice时的最大长度
+- example 实例值
+- default 默认值
+- enum 限定值
+- required 是否必传参数
+
 ## 关于(about)
 灵感为 github.com/swaggo/swag 的项目，因为这个项目无法解析 openapi3 的文档，因此自己实现了一套 openapi3 的文档生成

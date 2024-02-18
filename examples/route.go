@@ -10,6 +10,7 @@ type ExampleBody struct {
 	Password string `json:"password"`  // 密码
 }
 
+// Test 测试结构体注释
 type Test struct {
 	ExampleRes
 }

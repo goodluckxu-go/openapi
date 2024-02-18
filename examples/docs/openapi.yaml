@@ -1,6 +1,9 @@
 components:
     schemas:
         github.com.getkin.kin-openapi.openapi3.Components:
+            description: |
+                Components is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#components-object
             properties:
                 callbacks:
                     format: github.com/getkin/kin-openapi/openapi3.Callbacks
@@ -31,6 +34,9 @@ components:
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.Contact:
+            description: |
+                Contact is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#contact-object
             properties:
                 email:
                     format: string
@@ -43,6 +49,9 @@ components:
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.ExternalDocs:
+            description: |
+                ExternalDocs is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#external-documentation-object
             properties:
                 description:
                     format: string
@@ -52,6 +61,9 @@ components:
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.Info:
+            description: |
+                Info is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#info-object
             properties:
                 contact:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Contact'
@@ -73,6 +85,9 @@ components:
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.License:
+            description: |
+                License is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#license-object
             properties:
                 name:
                     description: Required
@@ -83,6 +98,9 @@ components:
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.Operation:
+            description: |
+                Operation represents "operation" specified by" OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operation-object
             properties:
                 callbacks:
                     format: github.com/getkin/kin-openapi/openapi3.Callbacks
@@ -121,6 +139,9 @@ components:
                     type: array
             type: object
         github.com.getkin.kin-openapi.openapi3.PathItem:
+            description: |
+                PathItem is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#path-item-object
             properties:
                 $ref:
                     format: string
@@ -157,6 +178,9 @@ components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
             type: object
         github.com.getkin.kin-openapi.openapi3.Paths:
+            description: |
+                Paths is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#paths-object
             properties:
                 m:
                     properties:
@@ -165,6 +189,9 @@ components:
                     type: object
             type: object
         github.com.getkin.kin-openapi.openapi3.RequestBody:
+            description: |
+                RequestBody is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#request-body-object
             properties:
                 content:
                     format: github.com/getkin/kin-openapi/openapi3.Content
@@ -177,6 +204,9 @@ components:
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.RequestBodyRef:
+            description: |
+                RequestBodyRef represents either a RequestBody or a $ref to a RequestBody.
+                When serializing and both fields are set, Ref is preferred over Value.
             properties:
                 Ref:
                     format: string
@@ -190,6 +220,9 @@ components:
                     type: array
             type: object
         github.com.getkin.kin-openapi.openapi3.Response:
+            description: |
+                Response is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#response-object
             properties:
                 content:
                     format: github.com/getkin/kin-openapi/openapi3.Content
@@ -205,6 +238,9 @@ components:
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.ResponseRef:
+            description: |
+                ResponseRef represents either a Response or a $ref to a Response.
+                When serializing and both fields are set, Ref is preferred over Value.
             properties:
                 Ref:
                     format: string
@@ -218,6 +254,9 @@ components:
                     type: array
             type: object
         github.com.getkin.kin-openapi.openapi3.Responses:
+            description: |
+                Responses is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responses-object
             properties:
                 m:
                     properties:
@@ -226,6 +265,9 @@ components:
                     type: object
             type: object
         github.com.getkin.kin-openapi.openapi3.T:
+            description: |
+                T is the root of an OpenAPI v3 document
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#openapi-object
             properties:
                 components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Components'
@@ -287,6 +329,8 @@ components:
                     type: string
             type: object
         github.com.goodluckxu-go.openapi.examples.Test:
+            description: |
+                Test 测试结构体注释
             properties:
                 id:
                     description: 主键
@@ -391,8 +435,8 @@ paths:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
                     description: 错误信息
             security:
-                - token: []
                 - projectID: []
+                - token: []
             summary: 登录后台
             tags:
                 - admin
@@ -454,8 +498,8 @@ paths:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.Test'
                     description: 错误信息
             security:
-                - projectID: []
                 - token: []
+                - projectID: []
             summary: 获取用户列表
             tags:
                 - admin

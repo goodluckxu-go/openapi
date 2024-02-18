@@ -498,8 +498,9 @@ func (o *openapiHandle) setScheme(strInfo *structInfo) (refUrl string) {
 	}
 	schemaRef := &openapi3.SchemaRef{
 		Value: &openapi3.Schema{
-			Type:       "object",
-			Properties: map[string]*openapi3.SchemaRef{},
+			Type:        "object",
+			Description: strInfo.comment,
+			Properties:  map[string]*openapi3.SchemaRef{},
 		},
 	}
 	for _, v2 := range strInfo.list {
