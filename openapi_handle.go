@@ -94,12 +94,25 @@ func (o *openapiHandle) handleImportStruct() {
 }
 
 func (o *openapiHandle) handleNoStructFieldName() {
+	inBool := func(v structField, list []structField) bool {
+		for i := range list {
+			if list[i].fieldName == v.fieldName {
+				return true
+			}
+		}
+		return false
+	}
 	for k, v := range o.structs {
 		var fieldNameList []structField
 		for _, fieldInfo := range v.list {
 			if fieldInfo.fieldName == "" {
-				if o.structs[fieldInfo.fieldType] != nil {
-					fieldNameList = append(fieldNameList, o.structs[fieldInfo.fieldType].list...)
+				childStruct := o.structs[fieldInfo.fieldType]
+				if childStruct != nil {
+					for _, v1 := range childStruct.list {
+						if !inBool(v1, fieldNameList) {
+							fieldNameList = append(fieldNameList, v1)
+						}
+					}
 				}
 			} else {
 				fieldNameList = append(fieldNameList, fieldInfo)
@@ -491,7 +504,11 @@ func (o *openapiHandle) setScheme(strInfo *structInfo) (refUrl string) {
 	}
 	for _, v2 := range strInfo.list {
 		fieldName := v2.fieldName
-		fieldSchemaRef := &openapi3.SchemaRef{}
+		fieldSchemaRef := &openapi3.SchemaRef{
+			Value: &openapi3.Schema{
+				Description: v2.comment,
+			},
+		}
 		o.setType(fieldSchemaRef, v2.fieldType)
 		var requiredList []string
 		for k3, v3 := range v2.extends {

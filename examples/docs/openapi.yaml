@@ -64,15 +64,18 @@ components:
                     format: string
                     type: string
                 title:
+                    description: Required
                     format: string
                     type: string
                 version:
+                    description: Required
                     format: string
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.License:
             properties:
                 name:
+                    description: Required
                     format: string
                     type: string
                 url:
@@ -231,6 +234,7 @@ components:
                 info:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Info'
                 openapi:
+                    description: Required
                     format: string
                     type: string
                 paths:
@@ -263,27 +267,33 @@ components:
         github.com.goodluckxu-go.openapi.examples.ExampleBody:
             properties:
                 password:
+                    description: 密码
                     format: string
                     type: string
                 user_name:
+                    description: 用户名称
                     format: string
                     type: string
             type: object
         github.com.goodluckxu-go.openapi.examples.ExampleRes:
             properties:
                 id:
+                    description: 主键
                     format: int
                     type: string
                 name:
+                    description: 名称
                     format: string
                     type: string
             type: object
         github.com.goodluckxu-go.openapi.examples.Test:
             properties:
                 id:
+                    description: 主键
                     format: int
                     type: string
                 name:
+                    description: 名称
                     format: string
                     type: string
             type: object
@@ -444,8 +454,8 @@ paths:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.Test'
                     description: 错误信息
             security:
-                - token: []
                 - projectID: []
+                - token: []
             summary: 获取用户列表
             tags:
                 - admin
