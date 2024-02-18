@@ -18,7 +18,7 @@ type openapiHandle struct {
 
 func (o *openapiHandle) load(routeDir, docPath string) {
 	o.t = &openapi3.T{
-		OpenAPI: "3.0.0",
+		OpenAPI: Version,
 	}
 	o.structs = map[string]*structInfo{}
 	o.schemas = map[string]*openapi3.SchemaRef{}

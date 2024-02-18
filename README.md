@@ -14,6 +14,11 @@
 //  description=标签描述
 ~~~
 
+### 安装命令
+~~~shell
+go install github.com/goodluckxu-go/openapi/cmd/apigen@latest
+~~~
+
 ### docs.go文档注释说明
 ~~~go
 // @info.title: 标题

@@ -355,7 +355,7 @@ components:
             name: api_key
             type: apiKey
 externalDocs:
-    description: Find out more about Swagger
+    description: "Find\tout more about Swagger"
     url: http://swagger.io
 info:
     contact:
@@ -435,8 +435,8 @@ paths:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
                     description: 错误信息
             security:
-                - projectID: []
                 - token: []
+                - projectID: []
             summary: 登录后台
             tags:
                 - admin
@@ -457,8 +457,8 @@ paths:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
                     description: 错误信息
             security:
-                - token: []
                 - projectID: []
+                - token: []
             summary: 退出登录
             tags:
                 - admin
