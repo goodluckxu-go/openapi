@@ -136,7 +136,7 @@ components:
                     type: string
                 deprecated:
                     format: bool
-                    type: string
+                    type: boolean
                 description:
                     format: string
                     type: string
@@ -363,22 +363,11 @@ components:
                 id:
                     description: 主键
                     format: int
-                    type: string
+                    type: integer
                 name:
                     description: 名称
                     format: string
                     type: string
-            type: object
-        github.com.goodluckxu-go.openapi.examples.Test:
-            description: |
-                Test 测试结构体注释
-            properties:
-                map:
-                    description: 对象
-                    properties:
-                        string:
-                            $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
-                    type: object
             type: object
     securitySchemes:
         projectID:
@@ -391,7 +380,7 @@ components:
             type: oauth2
         token:
             in: header
-            name: api_key
+            name: token
             type: apiKey
 externalDocs:
     description: Find out more about Swagger
@@ -445,9 +434,18 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
                     description: 错误信息
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                default: 服务器链接失败
+                                type: string
+                    description: 系统内部错误
             security:
                 - token: []
-                - projectID: []
+                - projectID:
+                    - write:pets
+                    - read:pets
             summary: 用户信息
             tags:
                 - admin
@@ -473,9 +471,18 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
                     description: 错误信息
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                default: 服务器链接失败
+                                type: string
+                    description: 系统内部错误
             security:
                 - token: []
-                - projectID: []
+                - projectID:
+                    - write:pets
+                    - read:pets
             summary: 登录后台
             tags:
                 - admin
@@ -495,9 +502,18 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
                     description: 错误信息
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                default: 服务器链接失败
+                                type: string
+                    description: 系统内部错误
             security:
                 - token: []
-                - projectID: []
+                - projectID:
+                    - write:pets
+                    - read:pets
             summary: 退出登录
             tags:
                 - admin
@@ -534,11 +550,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.Test'
-                    description: 错误信息
+                                default: 服务器链接失败
+                                type: string
+                    description: 系统内部错误
             security:
                 - token: []
-                - projectID: []
+                - projectID:
+                    - write:pets
+                    - read:pets
             summary: 获取用户列表
             tags:
                 - admin

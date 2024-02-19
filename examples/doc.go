@@ -28,7 +28,7 @@
 // @tags: name=admin;description=后台管理
 //
 // 验证设置
-// @components.securitySchemes: field=token;type=apiKey;name=api_key;in=header
+// @components.securitySchemes: field=token;type=apiKey;name=token;in=header
 //
 // @components.securitySchemes: |-
 //
@@ -42,4 +42,6 @@
 //		     }
 //		   }
 //		 }
+//
+// @global.res: status=500; in=application/json; content=服务器链接失败; desc=系统内部错误
 package examples

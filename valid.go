@@ -41,6 +41,12 @@ var (
 		"@components.securitySchemes._.name":         {valType: validTypeString},
 		"@components.securitySchemes._.in":           {valType: validTypeString, valEnum: []string{"query", "header", "cookie"}},
 		"@components.securitySchemes._.flows":        {valType: validTypeJson},
+		// global
+		"@global.res":           {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@global.res._.status":  {valType: validTypeInteger},
+		"@global.res._.in":      {valType: validTypeString, valEnum: []string{"application/json", "application/xml"}},
+		"@global.res._.content": {valType: validTypeString},
+		"@global.res._.desc":    {valType: validTypeString},
 	}
 
 	validRoutesMap = map[string]*validStruct{

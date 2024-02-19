@@ -45,6 +45,12 @@ go install github.com/goodluckxu-go/openapi/cmd/apigen@latest
 package main
 ~~~
 
+#### docs.go 文档中定义公共的 route.go 中的属性，和 route.go 的注释一致，在@后面添加global.
+~~~go
+// @global.res: status=500; in=application/json; content=服务器链接失败; desc=系统内部错误
+package main
+~~~
+
 ### route.go文档注释说明
 - @开始的标题，用 ; 分割，分割成对象。每个对象用 = 分割，分割成键，值，如果不存在 = 好则表示值是字符串 true
 

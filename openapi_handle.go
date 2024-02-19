@@ -15,6 +15,7 @@ type openapiHandle struct {
 	schemas       openapi3.Schemas
 	importStructs map[string]bool
 	sameStructs   map[string]string
+	globalRoutes  map[string]interface{}
 }
 
 func (o *openapiHandle) load(routeDir, docPath string) {
@@ -25,6 +26,7 @@ func (o *openapiHandle) load(routeDir, docPath string) {
 	o.schemas = map[string]*openapi3.SchemaRef{}
 	o.importStructs = map[string]bool{}
 	o.sameStructs = map[string]string{}
+	o.globalRoutes = map[string]interface{}{}
 	o.generateDoc(docPath)
 	o.generateRoute(routeDir)
 }
@@ -161,7 +163,7 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 	if o.t.Paths == nil {
 		o.t.Paths = &openapi3.Paths{}
 	}
-	for k, v := range routes {
+	for k, vMap := range routes {
 		vList := strings.Split(k, "_")
 		path := strings.Join(vList[:len(vList)-1], "_")
 		method := vList[len(vList)-1]
@@ -204,7 +206,24 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 				operation = pathItem.Trace
 			}
 		}
-		o.setOpenAPIByRoute(operation, v)
+		// 处理通用路由
+		for k1, v1 := range o.globalRoutes {
+			if vMap[k1] != nil {
+				switch setData := vMap[k1].(type) {
+				case []map[string]interface{}:
+					v1List, _ := v1.([]map[string]interface{})
+					setData = append(setData, v1List...)
+					vMap[k1] = setData
+				case map[string]interface{}:
+					v1Map, _ := v1.(map[string]interface{})
+					for k2, v2 := range v1Map {
+						setData[k2] = v2
+					}
+					vMap[k1] = setData
+				}
+			}
+		}
+		o.setOpenAPIByRoute(operation, vMap)
 		switch method {
 		case "get":
 			pathItem.Get = operation
@@ -478,8 +497,14 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, lev
 	}
 	strInfo := o.structs[types]
 	if strInfo == nil {
-		schemeRef.Value.Type = "string"
-		schemeRef.Value.Format = types
+		schemeRef.Value.Type = o.getType(types)
+		if level == 1 && schemeRef.Value.Type == "string" {
+			// 如果设置的类型是字符串则赋默认值
+			schemeRef.Value.Default = types
+		} else {
+			// 否则赋格式化
+			schemeRef.Value.Format = types
+		}
 	} else {
 		schemeRef.Ref = o.setScheme(strInfo, level)
 	}
@@ -574,6 +599,8 @@ func (o *openapiHandle) generateDoc(docPath string) {
 		log.Fatal(err)
 	}
 	o.setOpenAPIByDoc(o.t, asts.docs)
+	// 处理通用路由
+	o.globalRoutes["@res"] = asts.docs["@global.res"]
 }
 
 func (o *openapiHandle) setOpenAPIByDoc(dist any, dataMap map[string]interface{}) {
