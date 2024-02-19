@@ -62,6 +62,7 @@ func (a *astHandle) load(filePath string, modName string, loadType astLoadType, 
 	if len(modDir) > 0 {
 		a.modDir, _ = filepath.Abs(modDir[0])
 	}
+	a.sameStructs = map[string]string{}
 	a.filePath = filePath
 	a.modName = modName
 	a.fSet = token.NewFileSet()
@@ -404,6 +405,11 @@ func (a *astHandle) parseStruct(typeSpec *ast.TypeSpec) (strInfo *structInfo, bl
 	}
 	var structType *ast.StructType
 	if structType, ok = typeSpec.Type.(*ast.StructType); !ok {
+		sameTypes := a.getCallType(typeSpec.Type)
+		if sameTypes == "" || sameTypes == "interface{}" {
+			return
+		}
+		a.sameStructs[a.structPrefix+strInfo.name] = a.getCallType(typeSpec.Type)
 		return
 	}
 	for _, field := range structType.Fields.List {

@@ -14,6 +14,7 @@ type openapiHandle struct {
 	structs       map[string]*structInfo
 	schemas       openapi3.Schemas
 	importStructs map[string]bool
+	sameStructs   map[string]string
 }
 
 func (o *openapiHandle) load(routeDir, docPath string) {
@@ -23,6 +24,7 @@ func (o *openapiHandle) load(routeDir, docPath string) {
 	o.structs = map[string]*structInfo{}
 	o.schemas = map[string]*openapi3.SchemaRef{}
 	o.importStructs = map[string]bool{}
+	o.sameStructs = map[string]string{}
 	o.generateDoc(docPath)
 	o.generateRoute(routeDir)
 }
@@ -89,6 +91,9 @@ func (o *openapiHandle) handleImportStruct() {
 			for k2, v2 := range structHandle.structs {
 				o.structs[k2] = v2
 			}
+			for k2, v2 := range structHandle.sameStructs {
+				o.sameStructs[k2] = v2
+			}
 		}
 	}
 }
@@ -142,6 +147,9 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 		}
 		for k, v := range asts.structs {
 			o.structs[k] = v
+		}
+		for k, v := range asts.sameStructs {
+			o.sameStructs[k] = v
 		}
 	}
 	if len(routes) == 0 {
@@ -271,30 +279,7 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 				for k1, v1 := range vMap {
 					switch k1 {
 					case "content":
-						structTitle := toString(v1)
-						strInfo := o.structs[structTitle]
-						if strInfo == nil {
-							tempTitle := strings.TrimPrefix(structTitle, "[]")
-							if tempTitle != structTitle {
-								strInfo = o.structs[tempTitle]
-							}
-							if strInfo == nil {
-								if mediaType.Schema.Value == nil {
-									mediaType.Schema.Value = &openapi3.Schema{}
-								}
-								mediaType.Schema.Value.Type = "string"
-								mediaType.Schema.Value.Format = structTitle
-							} else {
-								mediaType.Schema.Value = &openapi3.Schema{
-									Type: "array",
-									Items: &openapi3.SchemaRef{
-										Ref: o.setScheme(strInfo),
-									},
-								}
-							}
-						} else {
-							mediaType.Schema.Ref = o.setScheme(strInfo)
-						}
+						o.setType(mediaType.Schema, toString(v1))
 					case "desc":
 						body.Value.Description = toString(v1)
 					}
@@ -448,12 +433,26 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 	}
 }
 
-func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string) {
+func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, levels ...int) {
+	level := 0
+	if len(levels) > 0 {
+		level = levels[0]
+	}
 	if schemeRef == nil {
 		schemeRef = &openapi3.SchemaRef{}
 	}
 	if schemeRef.Value == nil {
 		schemeRef.Value = &openapi3.Schema{}
+	}
+	if level == structDeep {
+		schemeRef.Value.Type = "string"
+		schemeRef.Value.Format = types
+		return
+	}
+	level++
+	if o.sameStructs[types] != "" {
+		o.setType(schemeRef, o.sameStructs[types], level)
+		return
 	}
 	tempTypes := ""
 	// 判断是否是数组
@@ -462,7 +461,7 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string) {
 		types = tempTypes
 		schemeRef.Value.Type = "array"
 		schemeRef.Value.Items = &openapi3.SchemaRef{}
-		o.setType(schemeRef.Value.Items, types)
+		o.setType(schemeRef.Value.Items, types, level)
 		return
 	}
 	// 判断是否是对象
@@ -474,7 +473,7 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string) {
 		schemeRef.Value.Properties = map[string]*openapi3.SchemaRef{
 			mapTypes: {},
 		}
-		o.setType(schemeRef.Value.Properties[mapTypes], types)
+		o.setType(schemeRef.Value.Properties[mapTypes], types, level)
 		return
 	}
 	strInfo := o.structs[types]
@@ -482,12 +481,16 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string) {
 		schemeRef.Value.Type = "string"
 		schemeRef.Value.Format = types
 	} else {
-		schemeRef.Ref = o.setScheme(strInfo)
+		schemeRef.Ref = o.setScheme(strInfo, level)
 	}
 
 }
 
-func (o *openapiHandle) setScheme(strInfo *structInfo) (refUrl string) {
+func (o *openapiHandle) setScheme(strInfo *structInfo, levels ...int) (refUrl string) {
+	level := 0
+	if len(levels) > 0 {
+		level = levels[0]
+	}
 	refUrl = "#/components/schemas/" + strInfo.name
 	if o.schemas[strInfo.name] != nil {
 		return
@@ -506,7 +509,7 @@ func (o *openapiHandle) setScheme(strInfo *structInfo) (refUrl string) {
 				Description: v2.comment,
 			},
 		}
-		o.setType(fieldSchemaRef, v2.fieldType)
+		o.setType(fieldSchemaRef, v2.fieldType, level)
 		var requiredList []string
 		for k3, v3 := range v2.extends {
 			switch k3 {
