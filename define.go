@@ -10,6 +10,16 @@ const (
 	structDeep = 10 // 多重结构体注释递归深度，防止出现链式调用
 )
 
+const (
+	validTypeString = iota
+	validTypeMap
+	validTypeMapArray
+	validTypeArray
+	validTypeBool
+	validTypeInteger
+	validTypeJson
+)
+
 var (
 	projectModName = ""
 	modPathMap     modHandle

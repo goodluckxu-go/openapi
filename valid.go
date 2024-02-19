@@ -1,7 +1,7 @@
 package openapi
 
 type validStruct struct {
-	valType       string   // 类型
+	valType       int      // 类型
 	cutListSign   string   // 列表截取标志
 	cutKeyValSign string   // 键值截取标志
 	valEnum       []string // 枚举验证
@@ -12,72 +12,72 @@ type validStruct struct {
 var (
 	validDocMap = map[string]*validStruct{
 		// info
-		"@info.title":          {valType: "string"},
-		"@info.description":    {valType: "string"},
-		"@info.termsOfService": {valType: "string"},
-		"@info.contact.name":   {valType: "string"},
-		"@info.contact.url":    {valType: "string"},
-		"@info.contact.email":  {valType: "string"},
-		"@info.license.name":   {valType: "string"},
-		"@info.license.url":    {valType: "string"},
-		"@info.version":        {valType: "string"},
+		"@info.title":          {valType: validTypeString},
+		"@info.description":    {valType: validTypeString},
+		"@info.termsOfService": {valType: validTypeString},
+		"@info.contact.name":   {valType: validTypeString},
+		"@info.contact.url":    {valType: validTypeString},
+		"@info.contact.email":  {valType: validTypeString},
+		"@info.license.name":   {valType: validTypeString},
+		"@info.license.url":    {valType: validTypeString},
+		"@info.version":        {valType: validTypeString},
 		// externalDocs
-		"@externalDocs.description": {valType: "string"},
-		"@externalDocs.url":         {valType: "string"},
+		"@externalDocs.description": {valType: validTypeString},
+		"@externalDocs.url":         {valType: validTypeString},
 		// servers
-		"@servers":               {valType: "array", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@servers._.url":         {valType: "string"},
-		"@servers._.description": {valType: "string"},
+		"@servers":               {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@servers._.url":         {valType: validTypeString},
+		"@servers._.description": {valType: validTypeString},
 		// tags
-		"@tags":               {valType: "array", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@tags._.name":        {valType: "string"},
-		"@tags._.description": {valType: "string"},
+		"@tags":               {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@tags._.name":        {valType: validTypeString},
+		"@tags._.description": {valType: validTypeString},
 		// components
-		"@components.securitySchemes":                {valType: "array", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@components.securitySchemes._.field":        {valType: "string", isUnique: true},
-		"@components.securitySchemes._.type":         {valType: "string", valEnum: []string{"apiKey", "http", "oauth2"}},
-		"@components.securitySchemes._.scheme":       {valType: "string"},
-		"@components.securitySchemes._.bearerFormat": {valType: "string"},
-		"@components.securitySchemes._.name":         {valType: "string"},
-		"@components.securitySchemes._.in":           {valType: "string", valEnum: []string{"query", "header", "cookie"}},
-		"@components.securitySchemes._.flows":        {valType: "json"},
+		"@components.securitySchemes":                {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@components.securitySchemes._.field":        {valType: validTypeString, isUnique: true},
+		"@components.securitySchemes._.type":         {valType: validTypeString, valEnum: []string{"apiKey", "http", "oauth2"}},
+		"@components.securitySchemes._.scheme":       {valType: validTypeString},
+		"@components.securitySchemes._.bearerFormat": {valType: validTypeString},
+		"@components.securitySchemes._.name":         {valType: validTypeString},
+		"@components.securitySchemes._.in":           {valType: validTypeString, valEnum: []string{"query", "header", "cookie"}},
+		"@components.securitySchemes._.flows":        {valType: validTypeJson},
 	}
 
 	validRoutesMap = map[string]*validStruct{
-		"@summary":     {valType: "string"},
-		"@description": {valType: "string"},
-		"@tags":        {valType: "map", cutListSign: secondListCutSign},
+		"@summary":     {valType: validTypeString},
+		"@description": {valType: validTypeString},
+		"@tags":        {valType: validTypeMap, cutListSign: secondListCutSign},
 		// param
-		"@param":             {valType: "array", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign, valEnum: []string{"required"}},
-		"@param._.in":        {valType: "string", valEnum: []string{"query", "header", "path", "cookie"}},
-		"@param._.name":      {valType: "string"},
-		"@param._.type":      {valType: "string", strCutOther: []string{"(", ")"}, valEnum: []string{"integer", "number", "string", "boolean"}},
-		"@param._.required":  {valType: "bool"},
-		"@param._.desc":      {valType: "string"},
-		"@param._.minimum":   {valType: "integer"},
-		"@param._.maximum":   {valType: "integer"},
-		"@param._.minLength": {valType: "integer"},
-		"@param._.maxLength": {valType: "integer"},
-		"@param._.example":   {valType: "string"},
-		"@param._.default":   {valType: "string"},
-		"@param._.enum":      {valType: "list", cutListSign: thirdListCutSign},
+		"@param":             {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign, valEnum: []string{"required"}},
+		"@param._.in":        {valType: validTypeString, valEnum: []string{"query", "header", "path", "cookie"}},
+		"@param._.name":      {valType: validTypeString},
+		"@param._.type":      {valType: validTypeString, strCutOther: []string{"(", ")"}, valEnum: []string{"integer", "number", "string", "boolean"}},
+		"@param._.required":  {valType: validTypeBool},
+		"@param._.desc":      {valType: validTypeString},
+		"@param._.minimum":   {valType: validTypeInteger},
+		"@param._.maximum":   {valType: validTypeInteger},
+		"@param._.minLength": {valType: validTypeInteger},
+		"@param._.maxLength": {valType: validTypeInteger},
+		"@param._.example":   {valType: validTypeString},
+		"@param._.default":   {valType: validTypeString},
+		"@param._.enum":      {valType: validTypeArray, cutListSign: thirdListCutSign},
 		// body
-		"@body":           {valType: "map", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@body._.in":      {valType: "string", valEnum: []string{"application/json", "application/xml", "application/x-www-form-urlencoded"}},
-		"@body._.content": {valType: "string"},
-		"@body._.desc":    {valType: "string"},
+		"@body":           {valType: validTypeMap, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@body._.in":      {valType: validTypeString, valEnum: []string{"application/json", "application/xml", "application/x-www-form-urlencoded"}},
+		"@body._.content": {valType: validTypeString},
+		"@body._.desc":    {valType: validTypeString},
 		// res
-		"@res":           {valType: "array", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@res._.status":  {valType: "integer"},
-		"@res._.in":      {valType: "string", valEnum: []string{"application/json", "application/xml"}},
-		"@res._.content": {valType: "string"},
-		"@res._.desc":    {valType: "string"},
+		"@res":           {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@res._.status":  {valType: validTypeInteger},
+		"@res._.in":      {valType: validTypeString, valEnum: []string{"application/json", "application/xml"}},
+		"@res._.content": {valType: validTypeString},
+		"@res._.desc":    {valType: validTypeString},
 		// security
-		"@security":   {valType: "map", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@security._": {valType: "list", cutListSign: thirdListCutSign},
+		"@security":   {valType: validTypeMap, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@security._": {valType: validTypeArray, cutListSign: thirdListCutSign},
 		// @router
-		"@router":          {valType: "array", cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@router._.method": {valType: "string", valEnum: []string{"get", "put", "post", "delete", "options", "head", "patch", "trace"}},
-		"@router._.path":   {valType: "string"},
+		"@router":          {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@router._.method": {valType: validTypeString, valEnum: []string{"get", "put", "post", "delete", "options", "head", "patch", "trace"}},
+		"@router._.path":   {valType: validTypeString},
 	}
 )

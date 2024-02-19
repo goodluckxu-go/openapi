@@ -204,7 +204,7 @@ func (a *astHandle) parseCommentLine(
 		a.uniqueFieldMap[uniqueKey] = true
 	}
 	switch validData.valType {
-	case "string":
+	case validTypeString:
 		validTitle := value
 		var cutInfo *strCutInfo
 		if len(validData.strCutOther) == 2 {
@@ -226,7 +226,7 @@ func (a *astHandle) parseCommentLine(
 		} else {
 			rsMap[key] = value
 		}
-	case "integer":
+	case validTypeInteger:
 		if len(validData.valEnum) > 0 && inArray(value, validData.valEnum) == -1 {
 			err = a.errorPos(fmt.Sprintf(errorNotIn, value, strings.Join(validData.valEnum, ",")), pos)
 			return
@@ -236,7 +236,7 @@ func (a *astHandle) parseCommentLine(
 			return
 		}
 		rsMap[key] = value
-	case "bool":
+	case validTypeBool:
 		if len(validData.valEnum) > 0 && inArray(value, validData.valEnum) == -1 {
 			err = a.errorPos(fmt.Sprintf(errorNotIn, value, strings.Join(validData.valEnum, ",")), pos)
 			return
@@ -246,13 +246,13 @@ func (a *astHandle) parseCommentLine(
 			return
 		}
 		rsMap[key] = value
-	case "json":
+	case validTypeJson:
 		var rs interface{}
 		if err = json.Unmarshal([]byte(value), &rs); err != nil {
 			return
 		}
 		rsMap[key] = rs
-	case "list":
+	case validTypeArray:
 		if validData.cutListSign == "" {
 			return
 		}
@@ -261,7 +261,7 @@ func (a *astHandle) parseCommentLine(
 			rs[k] = strings.Trim(v, " ")
 		}
 		rsMap[key] = rs
-	case "array", "map":
+	case validTypeMapArray, validTypeMap:
 		if validData.cutListSign == "" {
 			return
 		}
@@ -312,7 +312,7 @@ func (a *astHandle) parseCommentLine(
 				tmpMap[newV] = "true"
 			}
 		}
-		if validData.valType == "map" {
+		if validData.valType == validTypeMap {
 			rsMap[key] = tmpMap
 		} else {
 			rsList, _ := rsMap[key].([]map[string]interface{})
