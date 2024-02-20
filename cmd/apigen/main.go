@@ -42,7 +42,8 @@ func main() {
 				if outDir == "" {
 					outDir = defaultOutDir
 				}
-				openapi.GenerateOpenAPI(rootDir, routeDir, docPath, outDir)
+				ginRouteDir, _ := ctx.Value("ginRouteDir").(string)
+				openapi.GenerateOpenAPI(rootDir, routeDir, docPath, outDir, ginRouteDir)
 				return nil
 			},
 			Flags: []cli.Flag{
@@ -65,6 +66,10 @@ func main() {
 					Name:        "outDir",
 					Usage:       "生成文档输出目录",
 					DefaultText: defaultOutDir,
+				},
+				&cli.StringFlag{
+					Name:  "ginRouteDir",
+					Usage: "gin生成路由文件",
 				},
 			},
 		},

@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 )
 
-func GenerateOpenAPI(rootDir, routeDir, docPath, outDir string) {
+func GenerateOpenAPI(rootDir, routeDir, docPath, outDir, ginRouteOutDir string) {
 	modPathMap = modHandle{}
 	var err error
 	projectModName, err = modPathMap.load(rootDir)
@@ -39,5 +39,9 @@ func GenerateOpenAPI(rootDir, routeDir, docPath, outDir string) {
 	err = os.WriteFile(filepath.Join(outDir, "openapi.json"), buf, 0777)
 	if err != nil {
 		log.Fatal(err)
+	}
+	if ginRouteOutDir != "" {
+		gins := ginHandle{}
+		gins.load(openapi.routesFunc, "routes")
 	}
 }

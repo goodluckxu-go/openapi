@@ -34,12 +34,21 @@ type structInfo struct {
 	list    []structField
 }
 
+type routeFuncInfo struct {
+	funcImport string
+	funcStruct string
+	funcName   string
+	method     string
+	path       string
+}
+
 type astHandle struct {
 	fSet           *token.FileSet
 	astFile        *ast.File
 	structs        map[string]*structInfo            // 所有结构体
 	routes         map[string]map[string]interface{} // 所有路由
 	docs           map[string]interface{}            // 所有文档
+	routesFunc     []routeFuncInfo                   // 路由对应的方法名称
 	importMap      map[string]string
 	modName        string
 	filePath       string
@@ -115,10 +124,28 @@ func (a *astHandle) parseRoutes() (err error) {
 					continue
 				}
 				a.routes[path+"_"+method] = rsMap
+				a.parseRoutesFunc(path, method, funcDecl)
 			}
 		}
 	}
 	return
+}
+
+func (a *astHandle) parseRoutesFunc(path, method string, funcDecl *ast.FuncDecl) {
+	if funcDecl.Name == nil {
+		return
+	}
+	funcInfo := routeFuncInfo{
+		funcName:   funcDecl.Name.Name,
+		funcImport: strings.TrimSuffix(a.structPrefix, "."),
+		path:       path,
+		method:     method,
+	}
+	if funcDecl.Recv != nil && funcDecl.Recv.List != nil {
+		types := a.getCallType(funcDecl.Recv.List[0].Type)
+		funcInfo.funcStruct = strings.TrimPrefix(types, a.structPrefix)
+	}
+	a.routesFunc = append(a.routesFunc, funcInfo)
 }
 
 func (a *astHandle) parseDoc() (err error) {

@@ -12,6 +12,7 @@ import (
 type openapiHandle struct {
 	t             *openapi3.T
 	structs       map[string]*structInfo
+	routesFunc    []routeFuncInfo
 	schemas       openapi3.Schemas
 	importStructs map[string]bool
 	sameStructs   map[string]string
@@ -153,6 +154,7 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 		for k, v := range asts.sameStructs {
 			o.sameStructs[k] = v
 		}
+		o.routesFunc = append(o.routesFunc, asts.routesFunc...)
 	}
 	if len(routes) == 0 {
 		return

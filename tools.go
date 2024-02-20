@@ -3,6 +3,8 @@ package openapi
 import (
 	"archive/tar"
 	"compress/gzip"
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/invopop/yaml"
@@ -210,4 +212,18 @@ func UnSwaggerTarball(filePath string, outDir string) error {
 		}
 	}
 	return nil
+}
+
+func md516(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))[8:24]
+}
+
+func fullSpan(s string, maxLen int) string {
+	l := maxLen - len(s)
+	for i := 0; i < l; i++ {
+		s += " "
+	}
+	return s
 }

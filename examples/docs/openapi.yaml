@@ -17,13 +17,11 @@ components:
                 When serializing and both fields are set, Ref is preferred over Value.
             properties:
                 Ref:
-                    format: string
                     type: string
                 Value:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Callback'
                 extra:
                     items:
-                        format: string
                         type: string
                     type: array
             type: object
@@ -68,13 +66,10 @@ components:
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#contact-object
             properties:
                 email:
-                    format: string
                     type: string
                 name:
-                    format: string
                     type: string
                 url:
-                    format: string
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.ExternalDocs:
@@ -97,20 +92,16 @@ components:
                 contact:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Contact'
                 description:
-                    format: string
                     type: string
                 license:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.License'
                 termsOfService:
-                    format: string
                     type: string
                 title:
                     description: Required
-                    format: string
                     type: string
                 version:
                     description: Required
-                    format: string
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.License:
@@ -120,10 +111,8 @@ components:
             properties:
                 name:
                     description: Required
-                    format: string
                     type: string
                 url:
-                    format: string
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.Operation:
@@ -138,12 +127,10 @@ components:
                     format: bool
                     type: boolean
                 description:
-                    format: string
                     type: string
                 externalDocs:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs'
                 operationId:
-                    format: string
                     type: string
                 parameters:
                     format: '[]github.com/getkin/kin-openapi/openapi3.ParameterRef'
@@ -159,7 +146,6 @@ components:
                     format: '[]github.com/getkin/kin-openapi/openapi3.Server'
                     type: string
                 summary:
-                    format: string
                     type: string
                 tags:
                     items:
@@ -173,14 +159,12 @@ components:
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#path-item-object
             properties:
                 $ref:
-                    format: string
                     type: string
                 connect:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
                 delete:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
                 description:
-                    format: string
                     type: string
                 get:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
@@ -205,7 +189,6 @@ components:
                         type: string
                     type: array
                 summary:
-                    format: string
                     type: string
                 trace:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
@@ -251,11 +234,9 @@ components:
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-object
             properties:
                 description:
-                    format: string
                     type: string
                 url:
                     description: Required
-                    format: string
                     type: string
                 variables:
                     properties:
@@ -269,14 +250,11 @@ components:
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-variable-object
             properties:
                 default:
-                    format: string
                     type: string
                 description:
-                    format: string
                     type: string
                 enum:
                     items:
-                        format: string
                         type: string
                     type: array
             type: object
@@ -293,7 +271,6 @@ components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Info'
                 openapi:
                     description: Required
-                    format: string
                     type: string
                 paths:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Paths'
@@ -302,7 +279,6 @@ components:
                         properties:
                             string:
                                 items:
-                                    format: string
                                     type: string
                                 type: array
                         type: object
@@ -324,12 +300,10 @@ components:
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#tag-object
             properties:
                 description:
-                    format: string
                     type: string
                 externalDocs:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs'
                 name:
-                    format: string
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.visitedComponent:
@@ -345,28 +319,63 @@ components:
                             type: string
                     type: object
             type: object
-        github.com.goodluckxu-go.openapi.examples.ExampleBody:
+        github.com.goodluckxu-go.openapi.examples.LoginRequest:
+            description: |
+                LoginRequest 是登录参数
             properties:
+                account:
+                    description: 账号
+                    type: string
+                code:
+                    description: 验证码
+                    type: string
                 password:
                     description: 密码
-                    format: string
                     type: string
-                user_name:
-                    description: 用户名称
-                    format: string
+            required:
+                - account
+                - password
+                - code
+            type: object
+        github.com.goodluckxu-go.openapi.examples.ResponseError:
+            properties:
+                code:
+                    default: "404"
+                    description: 错误码
+                    format: int
+                    type: integer
+                msg:
+                    default: 返回失败
+                    description: 错误信息
                     type: string
             type: object
-        github.com.goodluckxu-go.openapi.examples.ExampleRes:
-            description: |
-                ExampleRes 是测试结果返回
+        github.com.goodluckxu-go.openapi.examples.ResponseSuccess:
             properties:
+                code:
+                    default: "0"
+                    description: 操作成功
+                    format: int
+                    type: integer
+            type: object
+        github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess:
+            properties:
+                create_time:
+                    default: "2024-02-20 14:21:13"
+                    description: 创建时间
+                    format: time.Time
+                    type: string
+                desc:
+                    default: 张三非常棒
+                    description: 简介
+                    type: string
                 id:
+                    default: "1"
                     description: 主键
                     format: int
                     type: integer
                 name:
+                    default: 张三
                     description: 名称
-                    format: string
                     type: string
             type: object
     securitySchemes:
@@ -388,67 +397,15 @@ externalDocs:
 info:
     contact:
         email: 807495056@qq.com
-    description: |-
-        This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
-        Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
-        You can now help us improve the API whether it's by making changes to the definition itself or to the code.
-        That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
-        @abc=125
-        _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
-
-        Some useful links:
-        - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
-        - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+    description: 该接口文档用于测试本程序生成的文档
     license:
         name: Apache 2.0
         url: http://www.apache.org/licenses/LICENSE-2.0.html
     termsOfService: http://swagger.io/terms/
-    title: Swagger Petstore - OpenAPI 3.0
+    title: openapi3文档测试接口
     version: 1.0.0
 openapi: 3.0.0
 paths:
-    /admin/{id}:
-        get:
-            description: 根据用户id查找用户信息
-            parameters:
-                - description: 主键
-                  in: path
-                  name: id
-                  required: true
-                  schema:
-                    default: "8"
-                    format: int64
-                    maximum: 10
-                    minimum: 1
-                    type: integer
-            responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
-                    description: 返回信息
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
-                    description: 错误信息
-                "500":
-                    content:
-                        application/json:
-                            schema:
-                                default: 服务器链接失败
-                                type: string
-                    description: 系统内部错误
-            security:
-                - token: []
-                - projectID:
-                    - write:pets
-                    - read:pets
-            summary: 用户信息
-            tags:
-                - admin
     /admin/login:
         post:
             description: 登录后返回token信息
@@ -456,21 +413,21 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleBody'
-                description: 用户信息
+                            $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.LoginRequest'
+                description: 登录参数
             responses:
                 "200":
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
-                    description: 返回信息
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseSuccess'
+                    description: 登录成功
                 "404":
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
-                    description: 错误信息
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError'
+                    description: 退出成功
                 "500":
                     content:
                         application/json:
@@ -494,14 +451,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
-                    description: 返回信息
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseSuccess'
+                    description: 退出成功
                 "404":
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
-                    description: 错误信息
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError'
+                    description: 退出失败
                 "500":
                     content:
                         application/json:
@@ -517,6 +474,65 @@ paths:
             summary: 退出登录
             tags:
                 - admin
+    /index:
+        get:
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.T'
+                    description: 递归注释
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                default: 服务器链接失败
+                                type: string
+                    description: 系统内部错误
+            summary: 测试结构体递归注释
+    /user/{id}:
+        get:
+            description: 根据用户id查找用户信息
+            parameters:
+                - description: 主键
+                  in: path
+                  name: id
+                  required: true
+                  schema:
+                    default: "1"
+                    format: int64
+                    maximum: 10
+                    minimum: 1
+                    type: integer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess'
+                    description: 返回信息
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError'
+                    description: 获取失败
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                default: 服务器链接失败
+                                type: string
+                    description: 系统内部错误
+            security:
+                - token: []
+                - projectID:
+                    - write:pets
+                    - read:pets
+            summary: 用户信息
+            tags:
+                - user
     /user/list:
         get:
             description: 用户列表接口需要授权
@@ -537,15 +553,15 @@ paths:
                         application/json:
                             schema:
                                 items:
-                                    $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ExampleRes'
+                                    $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess'
                                 type: array
-                    description: 返回信息
+                    description: 获取成功
                 "404":
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.T'
-                    description: 错误信息
+                                $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError'
+                    description: 获取失败
                 "500":
                     content:
                         application/json:
@@ -554,18 +570,21 @@ paths:
                                 type: string
                     description: 系统内部错误
             security:
-                - token: []
                 - projectID:
                     - write:pets
                     - read:pets
+                - token: []
             summary: 获取用户列表
             tags:
-                - admin
+                - user
 servers:
     - description: 版本v1
       url: /v1
     - description: 版本v2
       url: /v2
 tags:
+    - name: default
+    - description: 用户管理
+      name: user
     - description: 后台管理
       name: admin
