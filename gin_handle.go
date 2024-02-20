@@ -38,7 +38,14 @@ func (g *ginHandle) load(routesFunc []routeFuncInfo, routeDir string) {
 
 func (g *ginHandle) generateRoutes() string {
 	reg := regexp.MustCompile(`\{(.*?)\}`)
-	content := "func RegisterRoutes(engine *gin.Engine) {\n"
+	// 添加接口
+	content := "type Engine interface {\n"
+	methodList := []string{"Any", "GET", "PUT", "POST", "DELETE", "OPTIONS", "HEAD", "PATCH"}
+	for _, method := range methodList {
+		content += "\t" + method + "(relativePath string, handlers ...gin.HandlerFunc) gin.IRoutes\n"
+	}
+	content += "}\n\n"
+	content += "func RegisterRoutes(engine Engine) {\n"
 	for _, v := range g.routesFunc {
 		// 处理path
 		path := reg.ReplaceAllString(v.path, ":$1")
