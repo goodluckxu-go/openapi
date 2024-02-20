@@ -503,7 +503,9 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, lev
 			schemeRef.Value.Default = types
 		} else {
 			// 否则赋格式化
-			schemeRef.Value.Format = types
+			if schemeRef.Value.Type != types {
+				schemeRef.Value.Format = types
+			}
 		}
 	} else {
 		schemeRef.Ref = o.setScheme(strInfo, level)
@@ -527,6 +529,7 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, levels ...int) (refUrl st
 			Properties:  map[string]*openapi3.SchemaRef{},
 		},
 	}
+	var requiredList []string
 	for _, v2 := range strInfo.list {
 		fieldName := v2.fieldName
 		fieldSchemaRef := &openapi3.SchemaRef{
@@ -535,7 +538,6 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, levels ...int) (refUrl st
 			},
 		}
 		o.setType(fieldSchemaRef, v2.fieldType, level)
-		var requiredList []string
 		for k3, v3 := range v2.extends {
 			switch k3 {
 			case "minimum":
@@ -572,8 +574,8 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, levels ...int) (refUrl st
 			}
 		}
 		schemaRef.Value.Properties[fieldName] = fieldSchemaRef
-		schemaRef.Value.Required = requiredList
 	}
+	schemaRef.Value.Required = requiredList
 	o.schemas[strInfo.name] = schemaRef
 	return
 }
