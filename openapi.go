@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 )
 
-func GenerateOpenAPI(rootDir, routeDir, docPath, outDir, ginRouteOutDir string) {
+func GenerateOpenAPI(rootDir, routeDir, docPath, outDir, ginGenerateRouteDir string) {
 	modPathMap = modHandle{}
 	var err error
 	projectModName, err = modPathMap.load(rootDir)
@@ -40,8 +40,8 @@ func GenerateOpenAPI(rootDir, routeDir, docPath, outDir, ginRouteOutDir string) 
 	if err != nil {
 		log.Fatal(err)
 	}
-	if ginRouteOutDir != "" {
+	if ginGenerateRouteDir != "" {
 		gins := ginHandle{}
-		gins.load(openapi.routesFunc, "routes")
+		gins.load(openapi.routesFunc, ginGenerateRouteDir)
 	}
 }
