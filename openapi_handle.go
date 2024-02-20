@@ -221,8 +221,11 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 					}
 					vMap[k1] = setData
 				}
+			} else {
+				vMap[k1] = v1
 			}
 		}
+		o.handleResponse(vMap)
 		o.setOpenAPIByRoute(operation, vMap)
 		switch method {
 		case "get":
@@ -249,6 +252,26 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 		o.t.Components = &openapi3.Components{}
 	}
 	o.t.Components.Schemas = o.schemas
+}
+
+func (o *openapiHandle) handleResponse(dataMap map[string]interface{}) {
+	resList, _ := dataMap["@res"].([]map[string]interface{})
+	isStatusOK := false
+	for _, resMap := range resList {
+		if resMap["status"] == "200" {
+			isStatusOK = true
+		}
+	}
+	// 必定存在200状态
+	if !isStatusOK {
+		resList = append(resList, map[string]interface{}{
+			"in":      "text/plain",
+			"status":  "200",
+			"desc":    "Success",
+			"content": "",
+		})
+		dataMap["@res"] = resList
+	}
 }
 
 func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface{}) {
@@ -500,7 +523,9 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, lev
 		schemeRef.Value.Type = o.getType(types)
 		if level == 1 && schemeRef.Value.Type == "string" {
 			// 如果设置的类型是字符串则赋默认值
-			schemeRef.Value.Default = types
+			if types != "" {
+				schemeRef.Value.Default = types
+			}
 		} else {
 			// 否则赋格式化
 			if schemeRef.Value.Type != types {
