@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"github.com/goodluckxu-go/openapi"
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 const (
@@ -62,6 +64,43 @@ func main() {
 				&cli.StringFlag{
 					Name:        "outDir",
 					Usage:       "生成文档输出目录",
+					DefaultText: defaultOutDir,
+				},
+			},
+		},
+		{
+			Name:    "downSwagger",
+			Aliases: []string{"d"},
+			Usage:   "下载 最新的swagger-ui 文件",
+			Action: func(ctx *cli.Context) error {
+				outDir, _ := ctx.Value("outDir").(string)
+				if outDir == "" {
+					outDir = defaultOutDir
+				}
+				fileInfo, err := os.Stat(outDir)
+				if err != nil {
+					_ = os.MkdirAll(outDir, 0777)
+				} else if !fileInfo.IsDir() {
+					return fmt.Errorf("已存在 %v 文件", outDir)
+				}
+				// 不存在压缩包则下载
+				filePath := filepath.Join(outDir, "swagger.tar.gz")
+				downUrl := ""
+				if !openapi.IsFile(filePath) {
+					downUrl, err = openapi.GetGithubLastDownUrl("swagger-api/swagger-ui")
+					if err != nil {
+						return err
+					}
+					if err = openapi.Download(downUrl, filePath); err != nil {
+						return err
+					}
+				}
+				return openapi.UnSwaggerTarball(filePath, outDir)
+			},
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:        "outDir",
+					Usage:       "下载文件地址",
 					DefaultText: defaultOutDir,
 				},
 			},
