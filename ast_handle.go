@@ -126,7 +126,6 @@ func (a *astHandle) parseRoutes() (err error) {
 				}
 				a.routes[path+"_"+method] = rsMap
 				summary, _ := rsMap["@summary"].(string)
-				fmt.Println(summary)
 				a.parseRoutesFunc(path, method, summary, funcDecl)
 			}
 		}

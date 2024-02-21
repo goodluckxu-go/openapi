@@ -1,7 +1,6 @@
 package openapi
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -84,7 +83,6 @@ func (g *ginHandle) generateRoutes() string {
 		}
 	}
 	content += "}"
-	fmt.Println(content)
 	return content
 }
 
