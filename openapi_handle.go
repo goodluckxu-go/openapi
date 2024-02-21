@@ -477,10 +477,10 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 	}
 }
 
-func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, levels ...int) {
-	level := 0
-	if len(levels) > 0 {
-		level = levels[0]
+func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, alreadyMaps ...map[string]int) {
+	alreadyMap := map[string]int{}
+	if len(alreadyMaps) > 0 {
+		alreadyMap = alreadyMaps[0]
 	}
 	if schemeRef == nil {
 		schemeRef = &openapi3.SchemaRef{}
@@ -488,14 +488,18 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, lev
 	if schemeRef.Value == nil {
 		schemeRef.Value = &openapi3.Schema{}
 	}
-	if level == structDeep {
-		schemeRef.Value.Type = "string"
-		schemeRef.Value.Format = types
+	if alreadyMap[types] > 0 {
+		// 第一次重复需要设置ref值
+		if alreadyMap[types] == 1 {
+			// 克隆map去掉影响
+			tempAlreadyMap := cloneMap(alreadyMaps[0])
+			tempAlreadyMap[types]++
+			schemeRef.Ref = o.setScheme(o.structs[types], tempAlreadyMap)
+		}
 		return
 	}
-	level++
 	if o.sameStructs[types] != "" {
-		o.setType(schemeRef, o.sameStructs[types], level)
+		o.setType(schemeRef, o.sameStructs[types], alreadyMap)
 		return
 	}
 	tempTypes := ""
@@ -505,7 +509,7 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, lev
 		types = tempTypes
 		schemeRef.Value.Type = "array"
 		schemeRef.Value.Items = &openapi3.SchemaRef{}
-		o.setType(schemeRef.Value.Items, types, level)
+		o.setType(schemeRef.Value.Items, types, alreadyMap)
 		return
 	}
 	// 判断是否是对象
@@ -517,33 +521,26 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, lev
 		schemeRef.Value.Properties = map[string]*openapi3.SchemaRef{
 			mapTypes: {},
 		}
-		o.setType(schemeRef.Value.Properties[mapTypes], types, level)
+		o.setType(schemeRef.Value.Properties[mapTypes], types, alreadyMap)
 		return
 	}
 	strInfo := o.structs[types]
 	if strInfo == nil {
 		schemeRef.Value.Type = o.getType(types)
-		if level == 1 && schemeRef.Value.Type == "string" {
-			// 如果设置的类型是字符串则赋默认值
-			if types != "" {
-				schemeRef.Value.Default = types
-			}
-		} else {
-			// 否则赋格式化
-			if schemeRef.Value.Type != types {
-				schemeRef.Value.Format = types
-			}
+		if schemeRef.Value.Type != types {
+			schemeRef.Value.Format = types
 		}
 	} else {
-		schemeRef.Ref = o.setScheme(strInfo, level)
+		alreadyMap[types]++
+		schemeRef.Ref = o.setScheme(strInfo, alreadyMap)
 	}
 
 }
 
-func (o *openapiHandle) setScheme(strInfo *structInfo, levels ...int) (refUrl string) {
-	level := 0
-	if len(levels) > 0 {
-		level = levels[0]
+func (o *openapiHandle) setScheme(strInfo *structInfo, alreadyMaps ...map[string]int) (refUrl string) {
+	alreadyMap := map[string]int{}
+	if len(alreadyMaps) > 0 {
+		alreadyMap = alreadyMaps[0]
 	}
 	refUrl = "#/components/schemas/" + strInfo.name
 	if o.schemas[strInfo.name] != nil {
@@ -564,7 +561,7 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, levels ...int) (refUrl st
 				Description: v2.comment,
 			},
 		}
-		o.setType(fieldSchemaRef, v2.fieldType, level)
+		o.setType(fieldSchemaRef, v2.fieldType, alreadyMap)
 		for k3, v3 := range v2.extends {
 			switch k3 {
 			case "minimum":

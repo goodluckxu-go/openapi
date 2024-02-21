@@ -1,5 +1,12 @@
 components:
     schemas:
+        github.com.getkin.kin-openapi.openapi3.AdditionalProperties:
+            properties:
+                Has:
+                    format: bool
+                    type: boolean
+                Schema: {}
+            type: object
         github.com.getkin.kin-openapi.openapi3.Callback:
             description: |
                 Callback is specified by OpenAPI/Swagger standard version 3.
@@ -36,29 +43,45 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.CallbackRef'
                     type: object
                 examples:
-                    format: github.com/getkin/kin-openapi/openapi3.Examples
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExampleRef'
+                    type: object
                 headers:
-                    format: github.com/getkin/kin-openapi/openapi3.Headers
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.HeaderRef'
+                    type: object
                 links:
-                    format: github.com/getkin/kin-openapi/openapi3.Links
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.LinkRef'
+                    type: object
                 parameters:
-                    format: github.com/getkin/kin-openapi/openapi3.ParametersMap
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ParameterRef'
+                    type: object
                 requestBodies:
-                    format: github.com/getkin/kin-openapi/openapi3.RequestBodies
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.RequestBodyRef'
+                    type: object
                 responses:
-                    format: github.com/getkin/kin-openapi/openapi3.ResponseBodies
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ResponseRef'
+                    type: object
                 schemas:
-                    format: github.com/getkin/kin-openapi/openapi3.Schemas
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                    type: object
                 securitySchemes:
-                    format: github.com/getkin/kin-openapi/openapi3.SecuritySchemes
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SecuritySchemeRef'
+                    type: object
             type: object
         github.com.getkin.kin-openapi.openapi3.Contact:
             description: |
@@ -72,17 +95,137 @@ components:
                 url:
                     type: string
             type: object
+        github.com.getkin.kin-openapi.openapi3.Discriminator:
+            description: |
+                Discriminator is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminator-object
+            properties:
+                mapping:
+                    properties:
+                        string:
+                            type: string
+                    type: object
+                propertyName:
+                    description: required
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Encoding:
+            description: |
+                Encoding is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#encoding-object
+            properties:
+                allowReserved:
+                    format: bool
+                    type: boolean
+                contentType:
+                    type: string
+                explode:
+                    format: bool
+                    type: boolean
+                headers:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.HeaderRef'
+                    type: object
+                style:
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Example:
+            description: |
+                Example is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#example-object
+            properties:
+                description:
+                    type: string
+                externalValue:
+                    type: string
+                summary:
+                    type: string
+                value:
+                    format: interface{}
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.ExampleRef:
+            description: |
+                ExampleRef represents either a Example or a $ref to a Example.
+                When serializing and both fields are set, Ref is preferred over Value.
+            properties:
+                Ref:
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Example'
+                extra:
+                    items:
+                        type: string
+                    type: array
+            type: object
         github.com.getkin.kin-openapi.openapi3.ExternalDocs:
             description: |
                 ExternalDocs is specified by OpenAPI/Swagger standard version 3.
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#external-documentation-object
             properties:
                 description:
-                    format: string
                     type: string
                 url:
-                    format: string
                     type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Header:
+            description: |
+                Header is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#header-object
+            properties:
+                allowEmptyValue:
+                    format: bool
+                    type: boolean
+                allowReserved:
+                    format: bool
+                    type: boolean
+                content:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.MediaType'
+                    type: object
+                deprecated:
+                    format: bool
+                    type: boolean
+                description:
+                    type: string
+                example:
+                    format: interface{}
+                    type: string
+                examples:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExampleRef'
+                    type: object
+                explode:
+                    format: bool
+                    type: boolean
+                in:
+                    type: string
+                name:
+                    type: string
+                required:
+                    format: bool
+                    type: boolean
+                schema:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                style:
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.HeaderRef:
+            description: |
+                HeaderRef represents either a Header or a $ref to a Header.
+                When serializing and both fields are set, Ref is preferred over Value.
+            properties:
+                Ref:
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Header'
+                extra:
+                    items:
+                        type: string
+                    type: array
             type: object
         github.com.getkin.kin-openapi.openapi3.Info:
             description: |
@@ -115,14 +258,106 @@ components:
                 url:
                     type: string
             type: object
+        github.com.getkin.kin-openapi.openapi3.Link:
+            description: |
+                Link is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#link-object
+            properties:
+                description:
+                    type: string
+                operationId:
+                    type: string
+                operationRef:
+                    type: string
+                parameters:
+                    properties:
+                        string:
+                            format: interface{}
+                            type: string
+                    type: object
+                requestBody:
+                    format: interface{}
+                    type: string
+                server:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server'
+            type: object
+        github.com.getkin.kin-openapi.openapi3.LinkRef:
+            description: |
+                LinkRef represents either a Link or a $ref to a Link.
+                When serializing and both fields are set, Ref is preferred over Value.
+            properties:
+                Ref:
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Link'
+                extra:
+                    items:
+                        type: string
+                    type: array
+            type: object
+        github.com.getkin.kin-openapi.openapi3.MediaType:
+            description: |
+                MediaType is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#media-type-object
+            properties:
+                encoding:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Encoding'
+                    type: object
+                example:
+                    format: interface{}
+                    type: string
+                examples:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExampleRef'
+                    type: object
+                schema:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+            type: object
+        github.com.getkin.kin-openapi.openapi3.OAuthFlow:
+            description: |
+                OAuthFlow is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauth-flow-object
+            properties:
+                authorizationUrl:
+                    type: string
+                refreshUrl:
+                    type: string
+                scopes:
+                    description: required
+                    properties:
+                        string:
+                            type: string
+                    type: object
+                tokenUrl:
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.OAuthFlows:
+            description: |
+                OAuthFlows is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauth-flows-object
+            properties:
+                authorizationCode:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.OAuthFlow'
+                clientCredentials:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.OAuthFlow'
+                implicit:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.OAuthFlow'
+                password:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.OAuthFlow'
+            type: object
         github.com.getkin.kin-openapi.openapi3.Operation:
             description: |
                 Operation represents "operation" specified by" OpenAPI/Swagger 3.0 standard.
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operation-object
             properties:
                 callbacks:
-                    format: map[string]github.com/getkin/kin-openapi/openapi3.CallbackRef
-                    type: string
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.CallbackRef'
+                    type: object
                 deprecated:
                     format: bool
                     type: boolean
@@ -133,23 +368,88 @@ components:
                 operationId:
                     type: string
                 parameters:
-                    format: '[]github.com/getkin/kin-openapi/openapi3.ParameterRef'
-                    type: string
+                    items:
+                        $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ParameterRef'
+                    type: array
                 requestBody:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.RequestBodyRef'
                 responses:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Responses'
                 security:
-                    format: '[]github.com/getkin/kin-openapi/openapi3.SecurityRequirement'
-                    type: string
+                    items:
+                        properties:
+                            string:
+                                items:
+                                    type: string
+                                type: array
+                        type: object
+                    type: array
                 servers:
-                    format: '[]github.com/getkin/kin-openapi/openapi3.Server'
-                    type: string
+                    items:
+                        $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server'
+                    type: array
                 summary:
                     type: string
                 tags:
                     items:
-                        format: string
+                        type: string
+                    type: array
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Parameter:
+            description: |
+                Parameter is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#parameter-object
+            properties:
+                allowEmptyValue:
+                    format: bool
+                    type: boolean
+                allowReserved:
+                    format: bool
+                    type: boolean
+                content:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.MediaType'
+                    type: object
+                deprecated:
+                    format: bool
+                    type: boolean
+                description:
+                    type: string
+                example:
+                    format: interface{}
+                    type: string
+                examples:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExampleRef'
+                    type: object
+                explode:
+                    format: bool
+                    type: boolean
+                in:
+                    type: string
+                name:
+                    type: string
+                required:
+                    format: bool
+                    type: boolean
+                schema:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                style:
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.ParameterRef:
+            description: |
+                ParameterRef represents either a Parameter or a $ref to a Parameter.
+                When serializing and both fields are set, Ref is preferred over Value.
+            properties:
+                Ref:
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Parameter'
+                extra:
+                    items:
                         type: string
                     type: array
             type: object
@@ -174,8 +474,7 @@ components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
                 parameters:
                     items:
-                        format: github.com/getkin/kin-openapi/openapi3.ParameterRef
-                        type: string
+                        $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ParameterRef'
                     type: array
                 patch:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
@@ -185,8 +484,7 @@ components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
                 servers:
                     items:
-                        format: github.com/getkin/kin-openapi/openapi3.Server
-                        type: string
+                        $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server'
                     type: array
                 summary:
                     type: string
@@ -204,20 +502,72 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem'
                     type: object
             type: object
+        github.com.getkin.kin-openapi.openapi3.RequestBody:
+            description: |
+                RequestBody is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#request-body-object
+            properties:
+                content:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.MediaType'
+                    type: object
+                description:
+                    type: string
+                required:
+                    format: bool
+                    type: boolean
+            type: object
         github.com.getkin.kin-openapi.openapi3.RequestBodyRef:
             description: |
                 RequestBodyRef represents either a RequestBody or a $ref to a RequestBody.
                 When serializing and both fields are set, Ref is preferred over Value.
             properties:
                 Ref:
-                    format: string
                     type: string
                 Value:
-                    format: github.com/getkin/kin-openapi/openapi3.RequestBody
-                    type: string
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.RequestBody'
                 extra:
-                    format: '[]string'
+                    items:
+                        type: string
+                    type: array
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Response:
+            description: |
+                Response is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#response-object
+            properties:
+                content:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.MediaType'
+                    type: object
+                description:
                     type: string
+                headers:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.HeaderRef'
+                    type: object
+                links:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.LinkRef'
+                    type: object
+            type: object
+        github.com.getkin.kin-openapi.openapi3.ResponseRef:
+            description: |
+                ResponseRef represents either a Response or a $ref to a Response.
+                When serializing and both fields are set, Ref is preferred over Value.
+            properties:
+                Ref:
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Response'
+                extra:
+                    items:
+                        type: string
+                    type: array
             type: object
         github.com.getkin.kin-openapi.openapi3.Responses:
             description: |
@@ -225,8 +575,171 @@ components:
                 See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responses-object
             properties:
                 m:
-                    format: map[string]github.com/getkin/kin-openapi/openapi3.ResponseRef
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ResponseRef'
+                    type: object
+            type: object
+        github.com.getkin.kin-openapi.openapi3.Schema:
+            description: |
+                Schema is specified by OpenAPI/Swagger 3.0 standard.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schema-object
+            properties:
+                additionalProperties:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.AdditionalProperties'
+                allOf:
+                    items:
+                        $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                    type: array
+                allowEmptyValue:
+                    format: bool
+                    type: boolean
+                anyOf:
+                    items:
+                        $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                    type: array
+                default:
+                    format: interface{}
                     type: string
+                deprecated:
+                    format: bool
+                    type: boolean
+                description:
+                    type: string
+                discriminator:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Discriminator'
+                enum:
+                    items:
+                        format: interface{}
+                        type: string
+                    type: array
+                example:
+                    format: interface{}
+                    type: string
+                exclusiveMaximum:
+                    format: bool
+                    type: boolean
+                exclusiveMinimum:
+                    format: bool
+                    type: boolean
+                externalDocs:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs'
+                format:
+                    type: string
+                items:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                maxItems:
+                    format: uint64
+                    type: integer
+                maxLength:
+                    format: uint64
+                    type: integer
+                maxProperties:
+                    format: uint64
+                    type: integer
+                maximum:
+                    format: float64
+                    type: number
+                minItems:
+                    format: uint64
+                    type: integer
+                minLength:
+                    format: uint64
+                    type: integer
+                minProperties:
+                    format: uint64
+                    type: integer
+                minimum:
+                    format: float64
+                    type: number
+                multipleOf:
+                    format: float64
+                    type: number
+                not:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                nullable:
+                    format: bool
+                    type: boolean
+                oneOf:
+                    items:
+                        $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                    type: array
+                pattern:
+                    type: string
+                properties:
+                    properties:
+                        string:
+                            $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
+                    type: object
+                readOnly:
+                    format: bool
+                    type: boolean
+                required:
+                    items:
+                        type: string
+                    type: array
+                title:
+                    type: string
+                type:
+                    type: string
+                uniqueItems:
+                    format: bool
+                    type: boolean
+                writeOnly:
+                    format: bool
+                    type: boolean
+                xml:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.XML'
+            type: object
+        github.com.getkin.kin-openapi.openapi3.SchemaRef:
+            description: |
+                SchemaRef represents either a Schema or a $ref to a Schema.
+                When serializing and both fields are set, Ref is preferred over Value.
+            properties:
+                Ref:
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Schema'
+                extra:
+                    items:
+                        type: string
+                    type: array
+            type: object
+        github.com.getkin.kin-openapi.openapi3.SecurityScheme:
+            description: |
+                SecurityScheme is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#security-scheme-object
+            properties:
+                bearerFormat:
+                    type: string
+                description:
+                    type: string
+                flows:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.OAuthFlows'
+                in:
+                    type: string
+                name:
+                    type: string
+                openIdConnectUrl:
+                    type: string
+                scheme:
+                    type: string
+                type:
+                    type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.SecuritySchemeRef:
+            description: |
+                SecuritySchemeRef represents either a SecurityScheme or a $ref to a SecurityScheme.
+                When serializing and both fields are set, Ref is preferred over Value.
+            properties:
+                Ref:
+                    type: string
+                Value:
+                    $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SecurityScheme'
+                extra:
+                    items:
+                        type: string
+                    type: array
             type: object
         github.com.getkin.kin-openapi.openapi3.Server:
             description: |
@@ -305,6 +818,24 @@ components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs'
                 name:
                     type: string
+            type: object
+        github.com.getkin.kin-openapi.openapi3.XML:
+            description: |
+                XML is specified by OpenAPI/Swagger standard version 3.
+                See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#xml-object
+            properties:
+                attribute:
+                    format: bool
+                    type: boolean
+                name:
+                    type: string
+                namespace:
+                    type: string
+                prefix:
+                    type: string
+                wrapped:
+                    format: bool
+                    type: boolean
             type: object
         github.com.getkin.kin-openapi.openapi3.visitedComponent:
             properties:
@@ -432,7 +963,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                default: 服务器链接失败
+                                format: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:
@@ -463,7 +994,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                default: 服务器链接失败
+                                format: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:
@@ -487,7 +1018,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                default: 服务器链接失败
+                                format: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             summary: 测试结构体递归注释
@@ -522,7 +1053,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                default: 服务器链接失败
+                                format: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:
@@ -566,7 +1097,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                default: 服务器链接失败
+                                format: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:

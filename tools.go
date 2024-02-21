@@ -227,3 +227,11 @@ func fullSpan(s string, maxLen int) string {
 	}
 	return s
 }
+
+func cloneMap[M1 map[K]V, M2 map[K]V, K comparable, V any](src M2) (dst M1) {
+	dst = map[K]V{}
+	for k, v := range src {
+		dst[k] = v
+	}
+	return
+}
