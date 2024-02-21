@@ -1,6 +1,7 @@
 package openapi
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -66,6 +67,9 @@ func (g *ginHandle) generateRoutes() string {
 			content += "\t\tswitch ctx.Request.Method {\n"
 			for _, v1 := range pathMaps[v.path] {
 				content += "\t\tcase \"" + strings.ToUpper(v1.method) + "\":\n"
+				if v.summary != "" {
+					content += "\t\t\t// " + v1.summary + "\n"
+				}
 				content += "\t\t\t" + g.getStructAlias(v) + "." + v.funcName + "(ctx)\n"
 			}
 			content += "\t\tdefault:\n"
@@ -73,10 +77,14 @@ func (g *ginHandle) generateRoutes() string {
 			content += "\t\t}\n"
 			content += "\t})\n"
 		} else {
+			if v.summary != "" {
+				content += "\t// " + v.summary + "\n"
+			}
 			content += "\troutes." + v.method + "(\"" + v.path + "\", " + g.getStructAlias(v) + "." + v.funcName + ")\n"
 		}
 	}
 	content += "}"
+	fmt.Println(content)
 	return content
 }
 

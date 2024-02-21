@@ -38,6 +38,7 @@ type routeFuncInfo struct {
 	funcImport string
 	funcStruct string
 	funcName   string
+	summary    string
 	method     string
 	path       string
 }
@@ -124,14 +125,16 @@ func (a *astHandle) parseRoutes() (err error) {
 					continue
 				}
 				a.routes[path+"_"+method] = rsMap
-				a.parseRoutesFunc(path, method, funcDecl)
+				summary, _ := rsMap["@summary"].(string)
+				fmt.Println(summary)
+				a.parseRoutesFunc(path, method, summary, funcDecl)
 			}
 		}
 	}
 	return
 }
 
-func (a *astHandle) parseRoutesFunc(path, method string, funcDecl *ast.FuncDecl) {
+func (a *astHandle) parseRoutesFunc(path, method, summary string, funcDecl *ast.FuncDecl) {
 	if funcDecl.Name == nil {
 		return
 	}
@@ -140,6 +143,7 @@ func (a *astHandle) parseRoutesFunc(path, method string, funcDecl *ast.FuncDecl)
 		funcImport: strings.TrimSuffix(a.structPrefix, "."),
 		path:       path,
 		method:     method,
+		summary:    summary,
 	}
 	if funcDecl.Recv != nil && funcDecl.Recv.List != nil {
 		types := a.getCallType(funcDecl.Recv.List[0].Type)
