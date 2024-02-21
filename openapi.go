@@ -1,6 +1,7 @@
 package openapi
 
 import (
+	"encoding/json"
 	"log"
 	"os"
 	"path/filepath"
@@ -32,7 +33,7 @@ func GenerateOpenAPI(rootDir, routeDir, docPath, outDir, ginGenerateRouteDir str
 		log.Fatal(err)
 	}
 	// 生成json文档
-	buf, err = openapi.t.MarshalJSON()
+	buf, err = json.MarshalIndent(&openapi.t, "", "    ")
 	if err != nil {
 		log.Fatal(err)
 	}

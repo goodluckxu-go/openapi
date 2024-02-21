@@ -1,1 +1,852 @@
-{"components":{"schemas":{"github.com.getkin.kin-openapi.openapi3.Callback":{"description":"Callback is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#callback-object\n","properties":{"m":{"properties":{"string":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem"}},"type":"object"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.CallbackRef":{"description":"CallbackRef represents either a Callback or a $ref to a Callback.\nWhen serializing and both fields are set, Ref is preferred over Value.\n","properties":{"Ref":{"type":"string"},"Value":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Callback"},"extra":{"items":{"type":"string"},"type":"array"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Components":{"description":"Components is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#components-object\n","properties":{"callbacks":{"properties":{"string":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.CallbackRef"}},"type":"object"},"examples":{"format":"github.com/getkin/kin-openapi/openapi3.Examples","type":"string"},"headers":{"format":"github.com/getkin/kin-openapi/openapi3.Headers","type":"string"},"links":{"format":"github.com/getkin/kin-openapi/openapi3.Links","type":"string"},"parameters":{"format":"github.com/getkin/kin-openapi/openapi3.ParametersMap","type":"string"},"requestBodies":{"format":"github.com/getkin/kin-openapi/openapi3.RequestBodies","type":"string"},"responses":{"format":"github.com/getkin/kin-openapi/openapi3.ResponseBodies","type":"string"},"schemas":{"format":"github.com/getkin/kin-openapi/openapi3.Schemas","type":"string"},"securitySchemes":{"format":"github.com/getkin/kin-openapi/openapi3.SecuritySchemes","type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Contact":{"description":"Contact is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#contact-object\n","properties":{"email":{"type":"string"},"name":{"type":"string"},"url":{"type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.ExternalDocs":{"description":"ExternalDocs is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#external-documentation-object\n","properties":{"description":{"format":"string","type":"string"},"url":{"format":"string","type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Info":{"description":"Info is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#info-object\n","properties":{"contact":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Contact"},"description":{"type":"string"},"license":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.License"},"termsOfService":{"type":"string"},"title":{"description":"Required","type":"string"},"version":{"description":"Required","type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.License":{"description":"License is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#license-object\n","properties":{"name":{"description":"Required","type":"string"},"url":{"type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Operation":{"description":"Operation represents \"operation\" specified by\" OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operation-object\n","properties":{"callbacks":{"format":"map[string]github.com/getkin/kin-openapi/openapi3.CallbackRef","type":"string"},"deprecated":{"format":"bool","type":"boolean"},"description":{"type":"string"},"externalDocs":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs"},"operationId":{"type":"string"},"parameters":{"format":"[]github.com/getkin/kin-openapi/openapi3.ParameterRef","type":"string"},"requestBody":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.RequestBodyRef"},"responses":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Responses"},"security":{"format":"[]github.com/getkin/kin-openapi/openapi3.SecurityRequirement","type":"string"},"servers":{"format":"[]github.com/getkin/kin-openapi/openapi3.Server","type":"string"},"summary":{"type":"string"},"tags":{"items":{"format":"string","type":"string"},"type":"array"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.PathItem":{"description":"PathItem is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#path-item-object\n","properties":{"$ref":{"type":"string"},"connect":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"delete":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"description":{"type":"string"},"get":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"head":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"options":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"parameters":{"items":{"format":"github.com/getkin/kin-openapi/openapi3.ParameterRef","type":"string"},"type":"array"},"patch":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"post":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"put":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"},"servers":{"items":{"format":"github.com/getkin/kin-openapi/openapi3.Server","type":"string"},"type":"array"},"summary":{"type":"string"},"trace":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Paths":{"description":"Paths is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#paths-object\n","properties":{"m":{"properties":{"string":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem"}},"type":"object"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.RequestBodyRef":{"description":"RequestBodyRef represents either a RequestBody or a $ref to a RequestBody.\nWhen serializing and both fields are set, Ref is preferred over Value.\n","properties":{"Ref":{"format":"string","type":"string"},"Value":{"format":"github.com/getkin/kin-openapi/openapi3.RequestBody","type":"string"},"extra":{"format":"[]string","type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Responses":{"description":"Responses is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responses-object\n","properties":{"m":{"format":"map[string]github.com/getkin/kin-openapi/openapi3.ResponseRef","type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Server":{"description":"Server is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-object\n","properties":{"description":{"type":"string"},"url":{"description":"Required","type":"string"},"variables":{"properties":{"string":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.ServerVariable"}},"type":"object"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.ServerVariable":{"description":"ServerVariable is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-variable-object\n","properties":{"default":{"type":"string"},"description":{"type":"string"},"enum":{"items":{"type":"string"},"type":"array"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.T":{"description":"T is the root of an OpenAPI v3 document\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#openapi-object\n","properties":{"components":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Components"},"externalDocs":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs"},"info":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Info"},"openapi":{"description":"Required","type":"string"},"paths":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Paths"},"security":{"items":{"properties":{"string":{"items":{"type":"string"},"type":"array"}},"type":"object"},"type":"array"},"servers":{"items":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server"},"type":"array"},"tags":{"items":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.Tag"},"type":"array"},"visited":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.visitedComponent"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.Tag":{"description":"Tag is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#tag-object\n","properties":{"description":{"type":"string"},"externalDocs":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs"},"name":{"type":"string"}},"type":"object"},"github.com.getkin.kin-openapi.openapi3.visitedComponent":{"properties":{"header":{"properties":{"github.com/getkin/kin-openapi/openapi3.Header":{"type":"string"}},"type":"object"},"schema":{"properties":{"github.com/getkin/kin-openapi/openapi3.Schema":{"type":"string"}},"type":"object"}},"type":"object"},"github.com.goodluckxu-go.openapi.examples.LoginRequest":{"description":"LoginRequest 是登录参数\n","properties":{"account":{"description":"账号","type":"string"},"code":{"description":"验证码","type":"string"},"password":{"description":"密码","type":"string"}},"required":["account","password","code"],"type":"object"},"github.com.goodluckxu-go.openapi.examples.ResponseError":{"properties":{"code":{"default":"404","description":"错误码","format":"int","type":"integer"},"msg":{"default":"返回失败","description":"错误信息","type":"string"}},"type":"object"},"github.com.goodluckxu-go.openapi.examples.ResponseSuccess":{"properties":{"code":{"default":"0","description":"操作成功","format":"int","type":"integer"}},"type":"object"},"github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess":{"properties":{"create_time":{"default":"2024-02-20 14:21:13","description":"创建时间","format":"time.Time","type":"string"},"desc":{"default":"张三非常棒","description":"简介","type":"string"},"id":{"default":"1","description":"主键","format":"int","type":"integer"},"name":{"default":"张三","description":"名称","type":"string"}},"type":"object"}},"securitySchemes":{"projectID":{"flows":{"implicit":{"authorizationUrl":"https://example.com/api/oauth/dialog","scopes":{"read:pets":"read your pets","write:pets":"modify pets in your account"}}},"type":"oauth2"},"token":{"in":"header","name":"token","type":"apiKey"}}},"externalDocs":{"description":"Find out more about Swagger","url":"http://swagger.io"},"info":{"contact":{"email":"807495056@qq.com"},"description":"该接口文档用于测试本程序生成的文档","license":{"name":"Apache 2.0","url":"http://www.apache.org/licenses/LICENSE-2.0.html"},"termsOfService":"http://swagger.io/terms/","title":"openapi3文档测试接口","version":"1.0.0"},"openapi":"3.0.0","paths":{"/admin/login":{"post":{"description":"登录后返回token信息","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.LoginRequest"}}},"description":"登录参数"},"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseSuccess"}}},"description":"登录成功"},"404":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"}}},"description":"退出成功"},"500":{"content":{"application/json":{"schema":{"default":"服务器链接失败","type":"string"}}},"description":"系统内部错误"}},"security":[{"token":[]},{"projectID":["write:pets","read:pets"]}],"summary":"登录后台","tags":["admin"]}},"/admin/logout":{"delete":{"description":"清除后端的登录缓存","responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseSuccess"}}},"description":"退出成功"},"404":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"}}},"description":"退出失败"},"500":{"content":{"application/json":{"schema":{"default":"服务器链接失败","type":"string"}}},"description":"系统内部错误"}},"security":[{"token":[]},{"projectID":["write:pets","read:pets"]}],"summary":"退出登录","tags":["admin"]}},"/index":{"get":{"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.getkin.kin-openapi.openapi3.T"}}},"description":"递归注释"},"500":{"content":{"application/json":{"schema":{"default":"服务器链接失败","type":"string"}}},"description":"系统内部错误"}},"summary":"测试结构体递归注释"}},"/user/list":{"get":{"description":"用户列表接口需要授权","parameters":[{"description":"用户名称","in":"query","name":"name","schema":{"type":"string"}},{"description":"用户性别","in":"query","name":"sex","schema":{"type":"string"}}],"responses":{"200":{"content":{"application/json":{"schema":{"items":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess"},"type":"array"}}},"description":"获取成功"},"404":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"}}},"description":"获取失败"},"500":{"content":{"application/json":{"schema":{"default":"服务器链接失败","type":"string"}}},"description":"系统内部错误"}},"security":[{"projectID":["write:pets","read:pets"]},{"token":[]}],"summary":"获取用户列表","tags":["user"]}},"/user/{id}":{"get":{"description":"根据用户id查找用户信息","parameters":[{"description":"主键","in":"path","name":"id","required":true,"schema":{"default":"1","format":"int64","maximum":10,"minimum":1,"type":"integer"}}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess"}}},"description":"返回信息"},"404":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"}}},"description":"获取失败"},"500":{"content":{"application/json":{"schema":{"default":"服务器链接失败","type":"string"}}},"description":"系统内部错误"}},"security":[{"token":[]},{"projectID":["write:pets","read:pets"]}],"summary":"用户信息","tags":["user"]}}},"servers":[{"description":"版本v1","url":"/v1"},{"description":"版本v2","url":"/v2"}],"tags":[{"name":"default"},{"description":"用户管理","name":"user"},{"description":"后台管理","name":"admin"}]}
+{
+    "components": {
+        "schemas": {
+            "github.com.getkin.kin-openapi.openapi3.Callback": {
+                "description": "Callback is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#callback-object\n",
+                "properties": {
+                    "m": {
+                        "properties": {
+                            "string": {
+                                "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.CallbackRef": {
+                "description": "CallbackRef represents either a Callback or a $ref to a Callback.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
+                "properties": {
+                    "Ref": {
+                        "type": "string"
+                    },
+                    "Value": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Callback"
+                    },
+                    "extra": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Components": {
+                "description": "Components is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#components-object\n",
+                "properties": {
+                    "callbacks": {
+                        "properties": {
+                            "string": {
+                                "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.CallbackRef"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "examples": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.Examples",
+                        "type": "string"
+                    },
+                    "headers": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.Headers",
+                        "type": "string"
+                    },
+                    "links": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.Links",
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.ParametersMap",
+                        "type": "string"
+                    },
+                    "requestBodies": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.RequestBodies",
+                        "type": "string"
+                    },
+                    "responses": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.ResponseBodies",
+                        "type": "string"
+                    },
+                    "schemas": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.Schemas",
+                        "type": "string"
+                    },
+                    "securitySchemes": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.SecuritySchemes",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Contact": {
+                "description": "Contact is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#contact-object\n",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.ExternalDocs": {
+                "description": "ExternalDocs is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#external-documentation-object\n",
+                "properties": {
+                    "description": {
+                        "format": "string",
+                        "type": "string"
+                    },
+                    "url": {
+                        "format": "string",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Info": {
+                "description": "Info is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#info-object\n",
+                "properties": {
+                    "contact": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Contact"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "license": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.License"
+                    },
+                    "termsOfService": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "Required",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "Required",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.License": {
+                "description": "License is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#license-object\n",
+                "properties": {
+                    "name": {
+                        "description": "Required",
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Operation": {
+                "description": "Operation represents \"operation\" specified by\" OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operation-object\n",
+                "properties": {
+                    "callbacks": {
+                        "format": "map[string]github.com/getkin/kin-openapi/openapi3.CallbackRef",
+                        "type": "string"
+                    },
+                    "deprecated": {
+                        "format": "bool",
+                        "type": "boolean"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "externalDocs": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs"
+                    },
+                    "operationId": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "format": "[]github.com/getkin/kin-openapi/openapi3.ParameterRef",
+                        "type": "string"
+                    },
+                    "requestBody": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.RequestBodyRef"
+                    },
+                    "responses": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Responses"
+                    },
+                    "security": {
+                        "format": "[]github.com/getkin/kin-openapi/openapi3.SecurityRequirement",
+                        "type": "string"
+                    },
+                    "servers": {
+                        "format": "[]github.com/getkin/kin-openapi/openapi3.Server",
+                        "type": "string"
+                    },
+                    "summary": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "items": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.PathItem": {
+                "description": "PathItem is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#path-item-object\n",
+                "properties": {
+                    "$ref": {
+                        "type": "string"
+                    },
+                    "connect": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "delete": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "get": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "head": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "parameters": {
+                        "items": {
+                            "format": "github.com/getkin/kin-openapi/openapi3.ParameterRef",
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "patch": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "post": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "put": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    },
+                    "servers": {
+                        "items": {
+                            "format": "github.com/getkin/kin-openapi/openapi3.Server",
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "summary": {
+                        "type": "string"
+                    },
+                    "trace": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Paths": {
+                "description": "Paths is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#paths-object\n",
+                "properties": {
+                    "m": {
+                        "properties": {
+                            "string": {
+                                "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.RequestBodyRef": {
+                "description": "RequestBodyRef represents either a RequestBody or a $ref to a RequestBody.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
+                "properties": {
+                    "Ref": {
+                        "format": "string",
+                        "type": "string"
+                    },
+                    "Value": {
+                        "format": "github.com/getkin/kin-openapi/openapi3.RequestBody",
+                        "type": "string"
+                    },
+                    "extra": {
+                        "format": "[]string",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Responses": {
+                "description": "Responses is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responses-object\n",
+                "properties": {
+                    "m": {
+                        "format": "map[string]github.com/getkin/kin-openapi/openapi3.ResponseRef",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Server": {
+                "description": "Server is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-object\n",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "Required",
+                        "type": "string"
+                    },
+                    "variables": {
+                        "properties": {
+                            "string": {
+                                "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.ServerVariable"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.ServerVariable": {
+                "description": "ServerVariable is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-variable-object\n",
+                "properties": {
+                    "default": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "enum": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.T": {
+                "description": "T is the root of an OpenAPI v3 document\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#openapi-object\n",
+                "properties": {
+                    "components": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Components"
+                    },
+                    "externalDocs": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs"
+                    },
+                    "info": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Info"
+                    },
+                    "openapi": {
+                        "description": "Required",
+                        "type": "string"
+                    },
+                    "paths": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Paths"
+                    },
+                    "security": {
+                        "items": {
+                            "properties": {
+                                "string": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "servers": {
+                        "items": {
+                            "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server"
+                        },
+                        "type": "array"
+                    },
+                    "tags": {
+                        "items": {
+                            "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Tag"
+                        },
+                        "type": "array"
+                    },
+                    "visited": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.visitedComponent"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.Tag": {
+                "description": "Tag is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#tag-object\n",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "externalDocs": {
+                        "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.ExternalDocs"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.getkin.kin-openapi.openapi3.visitedComponent": {
+                "properties": {
+                    "header": {
+                        "properties": {
+                            "github.com/getkin/kin-openapi/openapi3.Header": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "schema": {
+                        "properties": {
+                            "github.com/getkin/kin-openapi/openapi3.Schema": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.goodluckxu-go.openapi.examples.LoginRequest": {
+                "description": "LoginRequest 是登录参数\n",
+                "properties": {
+                    "account": {
+                        "description": "账号",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "验证码",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "密码",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "account",
+                    "password",
+                    "code"
+                ],
+                "type": "object"
+            },
+            "github.com.goodluckxu-go.openapi.examples.ResponseError": {
+                "properties": {
+                    "code": {
+                        "default": "404",
+                        "description": "错误码",
+                        "format": "int",
+                        "type": "integer"
+                    },
+                    "msg": {
+                        "default": "返回失败",
+                        "description": "错误信息",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.goodluckxu-go.openapi.examples.ResponseSuccess": {
+                "properties": {
+                    "code": {
+                        "default": "0",
+                        "description": "操作成功",
+                        "format": "int",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess": {
+                "properties": {
+                    "create_time": {
+                        "default": "2024-02-20 14:21:13",
+                        "description": "创建时间",
+                        "format": "time.Time",
+                        "type": "string"
+                    },
+                    "desc": {
+                        "default": "张三非常棒",
+                        "description": "简介",
+                        "type": "string"
+                    },
+                    "id": {
+                        "default": "1",
+                        "description": "主键",
+                        "format": "int",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "default": "张三",
+                        "description": "名称",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "projectID": {
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://example.com/api/oauth/dialog",
+                        "scopes": {
+                            "read:pets": "read your pets",
+                            "write:pets": "modify pets in your account"
+                        }
+                    }
+                },
+                "type": "oauth2"
+            },
+            "token": {
+                "in": "header",
+                "name": "token",
+                "type": "apiKey"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    },
+    "info": {
+        "contact": {
+            "email": "807495056@qq.com"
+        },
+        "description": "该接口文档用于测试本程序生成的文档",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "termsOfService": "http://swagger.io/terms/",
+        "title": "openapi3文档测试接口",
+        "version": "1.0.0"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/admin/login": {
+            "post": {
+                "description": "登录后返回token信息",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.LoginRequest"
+                            }
+                        }
+                    },
+                    "description": "登录参数"
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseSuccess"
+                                }
+                            }
+                        },
+                        "description": "登录成功"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"
+                                }
+                            }
+                        },
+                        "description": "退出成功"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "default": "服务器链接失败",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "系统内部错误"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    },
+                    {
+                        "projectID": [
+                            "write:pets",
+                            "read:pets"
+                        ]
+                    }
+                ],
+                "summary": "登录后台",
+                "tags": [
+                    "admin"
+                ]
+            }
+        },
+        "/admin/logout": {
+            "delete": {
+                "description": "清除后端的登录缓存",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseSuccess"
+                                }
+                            }
+                        },
+                        "description": "退出成功"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"
+                                }
+                            }
+                        },
+                        "description": "退出失败"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "default": "服务器链接失败",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "系统内部错误"
+                    }
+                },
+                "security": [
+                    {
+                        "projectID": [
+                            "write:pets",
+                            "read:pets"
+                        ]
+                    },
+                    {
+                        "token": []
+                    }
+                ],
+                "summary": "退出登录",
+                "tags": [
+                    "admin"
+                ]
+            }
+        },
+        "/index": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.T"
+                                }
+                            }
+                        },
+                        "description": "递归注释"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "default": "服务器链接失败",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "系统内部错误"
+                    }
+                },
+                "summary": "测试结构体递归注释"
+            }
+        },
+        "/user/list": {
+            "get": {
+                "description": "用户列表接口需要授权",
+                "parameters": [
+                    {
+                        "description": "用户名称",
+                        "in": "query",
+                        "name": "name",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "用户性别",
+                        "in": "query",
+                        "name": "sex",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": "获取成功"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"
+                                }
+                            }
+                        },
+                        "description": "获取失败"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "default": "服务器链接失败",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "系统内部错误"
+                    }
+                },
+                "security": [
+                    {
+                        "projectID": [
+                            "write:pets",
+                            "read:pets"
+                        ]
+                    },
+                    {
+                        "token": []
+                    }
+                ],
+                "summary": "获取用户列表",
+                "tags": [
+                    "user"
+                ]
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "description": "根据用户id查找用户信息",
+                "parameters": [
+                    {
+                        "description": "主键",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "default": "1",
+                            "format": "int64",
+                            "maximum": 10,
+                            "minimum": 1,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess"
+                                }
+                            }
+                        },
+                        "description": "返回信息"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.ResponseError"
+                                }
+                            }
+                        },
+                        "description": "获取失败"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "default": "服务器链接失败",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "系统内部错误"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    },
+                    {
+                        "projectID": [
+                            "write:pets",
+                            "read:pets"
+                        ]
+                    }
+                ],
+                "summary": "用户信息",
+                "tags": [
+                    "user"
+                ]
+            }
+        }
+    },
+    "servers": [
+        {
+            "description": "版本v1",
+            "url": "/v1"
+        },
+        {
+            "description": "版本v2",
+            "url": "/v2"
+        }
+    ],
+    "tags": [
+        {
+            "name": "default"
+        },
+        {
+            "description": "用户管理",
+            "name": "user"
+        },
+        {
+            "description": "后台管理",
+            "name": "admin"
+        }
+    ]
+}

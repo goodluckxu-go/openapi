@@ -467,10 +467,10 @@ paths:
                                 type: string
                     description: 系统内部错误
             security:
-                - token: []
                 - projectID:
                     - write:pets
                     - read:pets
+                - token: []
             summary: 退出登录
             tags:
                 - admin
