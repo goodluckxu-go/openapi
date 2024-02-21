@@ -398,17 +398,19 @@ func (a *astHandle) parseStructs() {
 	var typeSpce *ast.TypeSpec
 	for _, decl := range a.astFile.Decls {
 		if genDecl, ok = decl.(*ast.GenDecl); ok && genDecl.Tok.String() == "type" {
-			if typeSpce, ok = genDecl.Specs[0].(*ast.TypeSpec); ok {
-				strInfo := &structInfo{}
-				if strInfo, ok = a.parseStruct(typeSpce); !ok {
-					continue
+			for _, spec := range genDecl.Specs {
+				if typeSpce, ok = spec.(*ast.TypeSpec); ok {
+					strInfo := &structInfo{}
+					if strInfo, ok = a.parseStruct(typeSpce); !ok {
+						continue
+					}
+					if genDecl.Doc != nil {
+						strInfo.comment = genDecl.Doc.Text()
+					}
+					strName := strInfo.name
+					strInfo.name = strings.ReplaceAll(a.structPrefix+strName, "/", ".")
+					a.structs[a.structPrefix+strName] = strInfo
 				}
-				if genDecl.Doc != nil {
-					strInfo.comment = genDecl.Doc.Text()
-				}
-				strName := strInfo.name
-				strInfo.name = strings.ReplaceAll(a.structPrefix+strName, "/", ".")
-				a.structs[a.structPrefix+strName] = strInfo
 			}
 		}
 	}
