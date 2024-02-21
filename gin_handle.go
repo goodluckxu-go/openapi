@@ -38,23 +38,43 @@ func (g *ginHandle) load(routesFunc []routeFuncInfo, routeDir string) {
 
 func (g *ginHandle) generateRoutes() string {
 	reg := regexp.MustCompile(`\{(.*?)\}`)
-	// 添加接口
-	content := "type Engine interface {\n"
-	methodList := []string{"Any", "GET", "PUT", "POST", "DELETE", "OPTIONS", "HEAD", "PATCH"}
-	for _, method := range methodList {
-		content += "\t" + method + "(relativePath string, handlers ...gin.HandlerFunc) gin.IRoutes\n"
-	}
-	content += "}\n\n"
-	content += "func RegisterRoutes(engine Engine) {\n"
-	for _, v := range g.routesFunc {
+	// 处理Any情况
+	anyPathMaps := map[string]bool{}
+	pathMaps := map[string][]routeFuncInfo{}
+	for k, v := range g.routesFunc {
 		// 处理path
-		path := reg.ReplaceAllString(v.path, ":$1")
+		v.path = reg.ReplaceAllString(v.path, ":$1")
 		// 处理method
 		method := "Any"
 		if inArray(v.method, []string{"get", "put", "post", "delete", "options", "head", "patch"}) != -1 {
 			method = strings.ToUpper(v.method)
 		}
-		content += "\tengine." + method + "(\"" + path + "\", " + g.getStructAlias(v) + "." + v.funcName + ")\n"
+		if method == "Any" {
+			anyPathMaps[v.path] = true
+		}
+		pathMaps[v.path] = append(pathMaps[v.path], v)
+		v.method = method
+		g.routesFunc[k] = v
+	}
+	content := "func RegisterRoutes(routes gin.IRoutes) {\n"
+	for _, v := range g.routesFunc {
+		if anyPathMaps[v.path] && v.method != "Any" {
+			continue
+		}
+		if v.method == "Any" {
+			content += "\troutes." + v.method + "(\"" + v.path + "\", func(ctx *gin.Context) {\n"
+			content += "\t\tswitch ctx.Request.Method {\n"
+			for _, v1 := range pathMaps[v.path] {
+				content += "\t\tcase \"" + strings.ToUpper(v1.method) + "\":\n"
+				content += "\t\t\t" + g.getStructAlias(v) + "." + v.funcName + "(ctx)\n"
+			}
+			content += "\t\tdefault:\n"
+			content += "\t\t\tctx.String(404, \"404 page not found\")\n"
+			content += "\t\t}\n"
+			content += "\t})\n"
+		} else {
+			content += "\troutes." + v.method + "(\"" + v.path + "\", " + g.getStructAlias(v) + "." + v.funcName + ")\n"
+		}
 	}
 	content += "}"
 	return content
