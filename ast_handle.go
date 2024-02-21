@@ -181,6 +181,12 @@ func (a *astHandle) parseComments(comment *ast.CommentGroup, validMap map[string
 		validData := validMap[title]
 		if validData == nil {
 			if isMull {
+				if v.Text == multiBorderSignEnd {
+					if err = a.parseCommentLine(v.Pos(), rsMap, key, a.remoteAnnotationSymbols(value), key, validMap); err != nil {
+						return
+					}
+					isMull = false
+				}
 				if v.Text == "" {
 					value += "\n"
 				} else {
