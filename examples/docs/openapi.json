@@ -1323,13 +1323,13 @@
                 },
                 "security": [
                     {
+                        "token": []
+                    },
+                    {
                         "projectID": [
                             "write:pets",
                             "read:pets"
                         ]
-                    },
-                    {
-                        "token": []
                     }
                 ],
                 "summary": "登录后台",

@@ -7,6 +7,7 @@ type validStruct struct {
 	valEnum       []string // 枚举验证
 	isUnique      bool     // 是否唯一
 	strCutOther   []string // 字符串切割其他值 0-左边界,1-右边界
+	isSort        bool     // 是否map排序
 }
 
 var (
@@ -79,7 +80,7 @@ var (
 		"@res._.content": {valType: validTypeString},
 		"@res._.desc":    {valType: validTypeString},
 		// security
-		"@security":   {valType: validTypeMap, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
+		"@security":   {valType: validTypeMap, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign, isSort: true},
 		"@security._": {valType: validTypeArray, cutListSign: thirdListCutSign},
 		// @router
 		"@router":          {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},

@@ -369,8 +369,8 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 				if val.Security != nil {
 					securitys = *val.Security
 				}
-
-				for k1, v1 := range vMap {
+				sorts, _ := vMap[sortField].([]string)
+				for _, k1 := range sorts {
 					if securitySchemes[k1] == nil {
 						var keys []string
 						for k2, _ := range securitySchemes {
@@ -378,6 +378,7 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 						}
 						log.Fatal(fmt.Sprintf("验证"+errorNotIn, k1, strings.Join(keys, ",")))
 					}
+					v1 := vMap[k1]
 					security := openapi3.SecurityRequirement{}
 					if v1 == "true" {
 						security[k1] = []string{}

@@ -968,10 +968,10 @@ paths:
                                 type: string
                     description: 系统内部错误
             security:
+                - token: []
                 - projectID:
                     - write:pets
                     - read:pets
-                - token: []
             summary: 登录后台
             tags:
                 - admin

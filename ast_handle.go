@@ -303,6 +303,7 @@ func (a *astHandle) parseCommentLine(
 		}
 		list := strings.Split(value, validData.cutListSign)
 		tmpMap := map[string]interface{}{}
+		var tmpSorts []string
 		beforeKey := ""
 		for _, v := range list {
 			newV := a.remoteAnnotationSymbols(v)
@@ -312,6 +313,7 @@ func (a *astHandle) parseCommentLine(
 					return
 				}
 				tmpMap[newV] = "true"
+				tmpSorts = append(tmpSorts, newV)
 				continue
 			}
 			vList := strings.Split(newV, validData.cutKeyValSign)
@@ -325,6 +327,7 @@ func (a *astHandle) parseCommentLine(
 						validData.cutKeyValSign)), childValidTitle, validMap); err != nil {
 						return
 					}
+					tmpSorts = append(tmpSorts, title)
 					continue
 				}
 				childValidTitle += "." + title
@@ -332,6 +335,7 @@ func (a *astHandle) parseCommentLine(
 				if childValidData == nil {
 					if beforeKey != "" {
 						tmpMap[beforeKey] = fmt.Sprintf("%v%v%v", toString(tmpMap[beforeKey]), validData.cutListSign, v)
+						tmpSorts = append(tmpSorts, beforeKey)
 					}
 					continue
 				}
@@ -340,13 +344,18 @@ func (a *astHandle) parseCommentLine(
 					validData.cutKeyValSign)), childValidTitle, validMap); err != nil {
 					return
 				}
+				tmpSorts = append(tmpSorts, title)
 			} else {
 				if len(validData.valEnum) > 0 && inArray(newV, validData.valEnum) == -1 {
 					err = a.errorPos(fmt.Sprintf(errorNotIn, newV, strings.Join(validData.valEnum, ",")), pos)
 					return
 				}
 				tmpMap[newV] = "true"
+				tmpSorts = append(tmpSorts, newV)
 			}
+		}
+		if validData.isSort {
+			tmpMap[sortField] = tmpSorts
 		}
 		if validData.valType == validTypeMap {
 			rsMap[key] = tmpMap
