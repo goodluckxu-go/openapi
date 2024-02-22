@@ -235,3 +235,22 @@ func cloneMap[M1 map[K]V, M2 map[K]V, K comparable, V any](src M2) (dst M1) {
 	}
 	return
 }
+
+func underlineToHumpFirstLower(value string) string {
+	lenValue := len(value)
+	rs := ""
+	for i := 0; i < lenValue; i++ {
+		iString := string(value[i])
+		if i == 0 {
+			rs += strings.ToLower(iString)
+		} else {
+			if iString == "_" {
+				i++
+				rs += strings.ToUpper(string(value[i]))
+			} else {
+				rs += iString
+			}
+		}
+	}
+	return rs
+}

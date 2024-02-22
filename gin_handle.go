@@ -41,6 +41,8 @@ func (g *ginHandle) generateRoutes() string {
 	// 处理Any情况
 	anyPathMaps := map[string]bool{}
 	pathMaps := map[string][]routeFuncInfo{}
+	var securityList []string
+	securityMap := map[string]bool{}
 	for k, v := range g.routesFunc {
 		// 处理path
 		v.path = reg.ReplaceAllString(v.path, ":$1")
@@ -55,14 +57,36 @@ func (g *ginHandle) generateRoutes() string {
 		pathMaps[v.path] = append(pathMaps[v.path], v)
 		v.method = method
 		g.routesFunc[k] = v
+		for _, v1 := range v.security {
+			if securityMap[v1] {
+				continue
+			}
+			securityMap[v1] = true
+			securityList = append(securityList, underlineToHumpFirstLower(v1)+"Middleware")
+		}
 	}
-	content := "func RegisterRoutes(routes gin.IRoutes) {\n"
+	content := "func RegisterRoutes(routes gin.IRoutes"
+	if len(securityList) > 0 {
+		content += ", "
+		content += strings.Join(securityList, ", ")
+		content += " " + "gin.HandlerFunc"
+	}
+	content += ") {\n"
 	for _, v := range g.routesFunc {
 		if anyPathMaps[v.path] && v.method != "Any" {
 			continue
 		}
+		if v.method != "Any" && v.summary != "" {
+			content += "\t// " + v.summary + "\n"
+		}
+		content += "\troutes." + v.method + "(\"" + v.path + "\", setHandlers("
+		// 添加中间件
+		for _, v1 := range v.security {
+			middlewareName := underlineToHumpFirstLower(v1) + "Middleware"
+			content += middlewareName + ", "
+		}
 		if v.method == "Any" {
-			content += "\troutes." + v.method + "(\"" + v.path + "\", func(ctx *gin.Context) {\n"
+			content += "func(ctx *gin.Context) {\n"
 			content += "\t\tswitch ctx.Request.Method {\n"
 			for _, v1 := range pathMaps[v.path] {
 				content += "\t\tcase \"" + strings.ToUpper(v1.method) + "\":\n"
@@ -74,14 +98,22 @@ func (g *ginHandle) generateRoutes() string {
 			content += "\t\tdefault:\n"
 			content += "\t\t\tctx.String(404, \"404 page not found\")\n"
 			content += "\t\t}\n"
-			content += "\t})\n"
+			content += "\t}"
 		} else {
-			if v.summary != "" {
-				content += "\t// " + v.summary + "\n"
-			}
-			content += "\troutes." + v.method + "(\"" + v.path + "\", " + g.getStructAlias(v) + "." + v.funcName + ")\n"
+			content += g.getStructAlias(v) + "." + v.funcName
 		}
+		content += ")...)\n"
+
 	}
+	content += "}\n\n"
+	// 增加设置handlers方法
+	content += "func setHandlers(handlers ...gin.HandlerFunc) (rs []gin.HandlerFunc) {\n"
+	content += "\tfor _, handler := range handlers {\n"
+	content += "\t\tif handler != nil {\n"
+	content += "\t\t\trs = append(rs, handler)\n"
+	content += "\t\t}\n"
+	content += "\t}\n"
+	content += "\treturn\n"
 	content += "}"
 	return content
 }
