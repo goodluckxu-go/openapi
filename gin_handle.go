@@ -123,7 +123,7 @@ func (g *ginHandle) generateRoutes() string {
 	content += "\t\t\t\treturn\n"
 	content += "\t\t\t}\n"
 	content += "\t\t}\n"
-	content += "\t\tctx.String(404, \"404 page not found\")\n"
+	content += "\t\thttp.NotFound(ctx.Writer, ctx.Request)\n"
 	content += "\t\tctx.Abort()\n"
 	content += "\t\treturn\n"
 	content += "\t}\n"
@@ -179,6 +179,7 @@ func (g *ginHandle) generateImport() string {
 	aliasMap := map[string]int{}
 	content := "import (\n"
 	content += "\t\"" + "github.com/gin-gonic/gin" + "\"\n"
+	content += "\t\"net/http\"\n"
 	for _, v := range g.routesFunc {
 		if importsMap[v.funcImport] {
 			continue
