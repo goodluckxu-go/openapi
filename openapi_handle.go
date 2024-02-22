@@ -527,7 +527,12 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, alr
 	strInfo := o.structs[types]
 	if strInfo == nil {
 		schemeRef.Value.Type = o.getType(types)
-		if schemeRef.Value.Type != types {
+		tempTypes = o.getSystemType(types)
+		if tempTypes == "" {
+			// 非系统类型则设置默认值
+			schemeRef.Value.Default = types
+		} else if schemeRef.Value.Type != types {
+			// 否则设置格式化
 			schemeRef.Value.Format = types
 		}
 	} else {
@@ -604,7 +609,7 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, alreadyMaps ...map[string
 	return
 }
 
-func (o *openapiHandle) getType(s string) string {
+func (o *openapiHandle) getSystemType(s string) string {
 	switch s {
 	case "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64":
 		return "integer"
@@ -614,6 +619,32 @@ func (o *openapiHandle) getType(s string) string {
 		return "boolean"
 	case "integer", "number", "string", "boolean":
 		return s
+	}
+	tempTypes := ""
+	// 判断是否是数组
+	tempTypes = strings.TrimPrefix(s, "[]")
+	if tempTypes != s {
+		if o.getSystemType(tempTypes) != "" {
+			return "array"
+		}
+		return ""
+	}
+	// 判断是否是对象
+	tempTypes = strings.TrimPrefix(s, "map[")
+	if tempTypes != s {
+		type1, type2 := getIndexFirst(tempTypes, "]")
+		if o.getSystemType(type1) != "" && o.getSystemType(type2) != "" {
+			return "object"
+		}
+		return ""
+	}
+	return ""
+}
+
+func (o *openapiHandle) getType(s string) string {
+	rs := o.getSystemType(s)
+	if rs != "" {
+		return rs
 	}
 	return "string"
 }

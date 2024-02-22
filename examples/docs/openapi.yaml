@@ -142,7 +142,7 @@ components:
                 summary:
                     type: string
                 value:
-                    format: interface{}
+                    default: interface{}
                     type: string
             type: object
         github.com.getkin.kin-openapi.openapi3.ExampleRef:
@@ -191,7 +191,7 @@ components:
                 description:
                     type: string
                 example:
-                    format: interface{}
+                    default: interface{}
                     type: string
                 examples:
                     properties:
@@ -272,11 +272,11 @@ components:
                 parameters:
                     properties:
                         string:
-                            format: interface{}
+                            default: interface{}
                             type: string
                     type: object
                 requestBody:
-                    format: interface{}
+                    default: interface{}
                     type: string
                 server:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server'
@@ -306,7 +306,7 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Encoding'
                     type: object
                 example:
-                    format: interface{}
+                    default: interface{}
                     type: string
                 examples:
                     properties:
@@ -417,7 +417,7 @@ components:
                 description:
                     type: string
                 example:
-                    format: interface{}
+                    default: interface{}
                     type: string
                 examples:
                     properties:
@@ -599,7 +599,7 @@ components:
                         $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
                     type: array
                 default:
-                    format: interface{}
+                    default: interface{}
                     type: string
                 deprecated:
                     format: bool
@@ -610,11 +610,11 @@ components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Discriminator'
                 enum:
                     items:
-                        format: interface{}
+                        default: interface{}
                         type: string
                     type: array
                 example:
-                    format: interface{}
+                    default: interface{}
                     type: string
                 exclusiveMaximum:
                     format: bool
@@ -842,11 +842,13 @@ components:
                 header:
                     properties:
                         github.com/getkin/kin-openapi/openapi3.Header:
+                            default: ""
                             type: string
                     type: object
                 schema:
                     properties:
                         github.com/getkin/kin-openapi/openapi3.Schema:
+                            default: ""
                             type: string
                     type: object
             type: object
@@ -893,7 +895,6 @@ components:
                 create_time:
                     default: "2024-02-20 14:21:13"
                     description: 创建时间
-                    format: time.Time
                     type: string
                 desc:
                     default: 张三非常棒
@@ -963,14 +964,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: 服务器链接失败
+                                default: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:
-                - token: []
                 - projectID:
                     - write:pets
                     - read:pets
+                - token: []
             summary: 登录后台
             tags:
                 - admin
@@ -994,14 +995,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: 服务器链接失败
+                                default: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:
+                - token: []
                 - projectID:
                     - write:pets
                     - read:pets
-                - token: []
             summary: 退出登录
             tags:
                 - admin
@@ -1018,7 +1019,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: 服务器链接失败
+                                default: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             summary: 测试结构体递归注释
@@ -1053,7 +1054,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: 服务器链接失败
+                                default: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:
@@ -1097,14 +1098,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: 服务器链接失败
+                                default: 服务器链接失败
                                 type: string
                     description: 系统内部错误
             security:
+                - token: []
                 - projectID:
                     - write:pets
                     - read:pets
-                - token: []
             summary: 获取用户列表
             tags:
                 - user
