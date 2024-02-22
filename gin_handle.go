@@ -81,6 +81,16 @@ func (g *ginHandle) generateRoutes() string {
 		}
 		content += "\troutes." + v.method + "(\"" + v.path + "\", setHandlers("
 		// 添加中间件
+		if v.method == "Any" {
+			content += "methodMiddleware("
+			for k1, v1 := range pathMaps[v.path] {
+				if k1 != 0 {
+					content += ", "
+				}
+				content += "\"" + strings.ToUpper(v1.method) + "\""
+			}
+			content += "), "
+		}
 		for _, v1 := range v.security {
 			middlewareName := underlineToHumpFirstLower(v1) + "Middleware"
 			content += middlewareName + ", "
@@ -95,8 +105,6 @@ func (g *ginHandle) generateRoutes() string {
 				}
 				content += "\t\t\t" + g.getStructAlias(v) + "." + v.funcName + "(ctx)\n"
 			}
-			content += "\t\tdefault:\n"
-			content += "\t\t\tctx.String(404, \"404 page not found\")\n"
 			content += "\t\t}\n"
 			content += "\t}"
 		} else {
@@ -105,6 +113,20 @@ func (g *ginHandle) generateRoutes() string {
 		content += ")...)\n"
 
 	}
+	content += "}\n\n"
+	// 增加method验证中间件
+	content += "func methodMiddleware(methods ...string) gin.HandlerFunc {\n"
+	content += "\treturn func(ctx *gin.Context) {\n"
+	content += "\t\tfor _, method := range methods {\n"
+	content += "\t\t\tif method == ctx.Request.Method {\n"
+	content += "\t\t\t\tctx.Next()\n"
+	content += "\t\t\t\treturn\n"
+	content += "\t\t\t}\n"
+	content += "\t\t}\n"
+	content += "\t\tctx.String(404, \"404 page not found\")\n"
+	content += "\t\tctx.Abort()\n"
+	content += "\t\treturn\n"
+	content += "\t}\n"
 	content += "}\n\n"
 	// 增加设置handlers方法
 	content += "func setHandlers(handlers ...gin.HandlerFunc) (rs []gin.HandlerFunc) {\n"
