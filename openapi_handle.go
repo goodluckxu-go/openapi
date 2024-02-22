@@ -339,26 +339,25 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 				for _, v1Map := range vList {
 					status := toString(v1Map["status"])
 					response := &openapi3.ResponseRef{
-						Value: &openapi3.Response{
-							Content: map[string]*openapi3.MediaType{},
-						},
+						Value: &openapi3.Response{},
 					}
 					in := toString(v1Map["in"])
-					if response.Value.Content == nil {
+					if in != "" {
 						response.Value.Content = map[string]*openapi3.MediaType{}
-					}
-					mediaType := &openapi3.MediaType{
-						Schema: &openapi3.SchemaRef{},
+						mediaType := &openapi3.MediaType{
+							Schema: &openapi3.SchemaRef{},
+						}
+						if v1Map["content"] != nil {
+							o.setType(mediaType.Schema, toString(v1Map["content"]))
+						}
+						response.Value.Content[in] = mediaType
 					}
 					for k2, v2 := range v1Map {
 						switch k2 {
-						case "content":
-							o.setType(mediaType.Schema, toString(v2))
 						case "desc":
 							response.Value.Description = toPtr(toString(v2))
 						}
 					}
-					response.Value.Content[in] = mediaType
 					responses.Set(status, response)
 				}
 				val.Responses = responses
