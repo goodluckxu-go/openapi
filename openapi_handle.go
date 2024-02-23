@@ -640,8 +640,13 @@ func (o *openapiHandle) getSystemType(s string) string {
 		return "number"
 	case "bool":
 		return "boolean"
+	case "time.Time":
+		return "string"
 	case "integer", "number", "string", "boolean":
 		return s
+	case "binary", "base64":
+		// 文件类型
+		return "string"
 	}
 	tempTypes := ""
 	// 判断是否是数组

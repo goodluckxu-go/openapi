@@ -69,7 +69,7 @@ var (
 		"@param._.enum":      {valType: validTypeArray, cutListSign: thirdListCutSign},
 		// body
 		"@body":           {valType: validTypeMap, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@body._.in":      {valType: validTypeArray, cutListSign: thirdListCutSign, valEnum: []string{"application/json", "application/xml", "application/x-www-form-urlencoded"}},
+		"@body._.in":      {valType: validTypeArray, cutListSign: thirdListCutSign, valEnum: []string{"application/json", "application/xml", "application/x-www-form-urlencoded", "multipart/form-data"}},
 		"@body._.content": {valType: validTypeString},
 		"@body._.desc":    {valType: validTypeString},
 		// res

@@ -979,6 +979,7 @@ components:
                 create_time:
                     default: "2024-02-20 14:21:13"
                     description: 创建时间
+                    format: time.Time
                     type: string
                 desc:
                     default: 张三非常棒

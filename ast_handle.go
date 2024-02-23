@@ -470,6 +470,11 @@ func (a *astHandle) parseStruct(typeSpec *ast.TypeSpec) (strInfo *structInfo, bl
 				fieldInfo.fieldName = rsList[0]
 				delete(rsMap, "json")
 			}
+			// 覆盖类型
+			if rsMap["type"] != nil {
+				rsList, _ := rsMap["type"].([]string)
+				fieldInfo.fieldType = rsList[0]
+			}
 			// 扩展extends
 			if len(rsMap) > 0 {
 				fieldInfo.extends = map[string][]string{}

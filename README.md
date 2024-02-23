@@ -125,6 +125,10 @@ type LoginRequest struct {
 - default 默认值
 - enum 限定值
 - required 是否必传参数
+- type 类型重定义
+
+## 文件上传
+只需要将in设置为 multipart/form-data， 类型设置为 base64 或者 binary 即可
 
 ## 关于(about)
 灵感为 github.com/swaggo/swag 的项目，因为这个项目无法解析 openapi3 的文档，因此自己实现了一套 openapi3 的文档生成
