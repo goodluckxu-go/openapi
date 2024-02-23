@@ -37,5 +37,5 @@
 //		 }
 //
 // @global.res: status=500; in=application/json; content=服务器链接失败; desc=系统内部错误
-// @global.param: in=query; name=type; type=string; desc=用户名称
+// @global.param: in=query; name=type; type=string; desc=类型
 package examples

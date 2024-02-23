@@ -1040,7 +1040,7 @@ paths:
         post:
             description: 登录后返回token信息
             parameters:
-                - description: 用户名称
+                - description: 类型
                   in: query
                   name: type
                   schema:
@@ -1083,7 +1083,7 @@ paths:
         delete:
             description: 清除后端的登录缓存
             parameters:
-                - description: 用户名称
+                - description: 类型
                   in: query
                   name: type
                   schema:
@@ -1119,7 +1119,7 @@ paths:
     /index:
         get:
             parameters:
-                - description: 用户名称
+                - description: 类型
                   in: query
                   name: type
                   schema:
@@ -1142,7 +1142,7 @@ paths:
     /upload:
         get:
             parameters:
-                - description: 用户名称
+                - description: 类型
                   in: query
                   name: type
                   schema:
@@ -1178,7 +1178,7 @@ paths:
                     maximum: 10
                     minimum: 1
                     type: integer
-                - description: 用户名称
+                - description: 类型
                   in: query
                   name: type
                   schema:
@@ -1225,7 +1225,7 @@ paths:
                   name: sex
                   schema:
                     type: string
-                - description: 用户名称
+                - description: 类型
                   in: query
                   name: type
                   schema:
