@@ -216,7 +216,7 @@
                         "type": "string"
                     },
                     "value": {
-                        "default": "interface{}",
+                        "format": "interface{}",
                         "type": "string"
                     }
                 },
@@ -288,7 +288,7 @@
                         "type": "string"
                     },
                     "example": {
-                        "default": "interface{}",
+                        "format": "interface{}",
                         "type": "string"
                     },
                     "examples": {
@@ -406,14 +406,14 @@
                     "parameters": {
                         "properties": {
                             "string": {
-                                "default": "interface{}",
+                                "format": "interface{}",
                                 "type": "string"
                             }
                         },
                         "type": "object"
                     },
                     "requestBody": {
-                        "default": "interface{}",
+                        "format": "interface{}",
                         "type": "string"
                     },
                     "server": {
@@ -458,7 +458,7 @@
                         "type": "object"
                     },
                     "example": {
-                        "default": "interface{}",
+                        "format": "interface{}",
                         "type": "string"
                     },
                     "examples": {
@@ -624,7 +624,7 @@
                         "type": "string"
                     },
                     "example": {
-                        "default": "interface{}",
+                        "format": "interface{}",
                         "type": "string"
                     },
                     "examples": {
@@ -898,7 +898,7 @@
                         "type": "array"
                     },
                     "default": {
-                        "default": "interface{}",
+                        "format": "interface{}",
                         "type": "string"
                     },
                     "deprecated": {
@@ -913,13 +913,13 @@
                     },
                     "enum": {
                         "items": {
-                            "default": "interface{}",
+                            "format": "interface{}",
                             "type": "string"
                         },
                         "type": "array"
                     },
                     "example": {
-                        "default": "interface{}",
+                        "format": "interface{}",
                         "type": "string"
                     },
                     "exclusiveMaximum": {
@@ -1255,7 +1255,6 @@
                     "header": {
                         "properties": {
                             "github.com.getkin.kin-openapi.openapi3.Header": {
-                                "default": "",
                                 "type": "string"
                             }
                         },
@@ -1264,7 +1263,6 @@
                     "schema": {
                         "properties": {
                             "github.com.getkin.kin-openapi.openapi3.Schema": {
-                                "default": "",
                                 "type": "string"
                             }
                         },
@@ -1333,6 +1331,24 @@
                 "type": "object",
                 "xml": {
                     "name": "ResponseSuccess"
+                }
+            },
+            "github.com.goodluckxu-go.openapi.examples.UploadRequest": {
+                "properties": {
+                    "file_base64": {
+                        "description": "上传文件",
+                        "format": "binary",
+                        "type": "string"
+                    },
+                    "file_binary": {
+                        "description": "上传文件",
+                        "format": "binary",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UploadRequest"
                 }
             },
             "github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess": {
@@ -1547,6 +1563,37 @@
                     }
                 },
                 "summary": "测试结构体递归注释"
+            }
+        },
+        "/upload": {
+            "get": {
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/github.com.goodluckxu-go.openapi.examples.UploadRequest"
+                            }
+                        }
+                    },
+                    "description": "上传文件"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "default": "服务器链接失败",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "系统内部错误"
+                    }
+                },
+                "summary": "上传文件"
             }
         },
         "/user/list": {

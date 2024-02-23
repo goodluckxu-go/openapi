@@ -326,7 +326,7 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 							Schema: &openapi3.SchemaRef{},
 						}
 						if vMap["content"] != nil {
-							o.setType(mediaType.Schema, toString(vMap["content"]))
+							o.setType(mediaType.Schema, toString(vMap["content"]), true)
 						}
 						body.Value.Content[in] = mediaType
 					}
@@ -357,7 +357,7 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 								Schema: &openapi3.SchemaRef{},
 							}
 							if v1Map["content"] != nil {
-								o.setType(mediaType.Schema, toString(v1Map["content"]))
+								o.setType(mediaType.Schema, toString(v1Map["content"]), true)
 							}
 							response.Value.Content[in] = mediaType
 						}
@@ -482,7 +482,7 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 	}
 }
 
-func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, alreadyMaps ...map[string]int) {
+func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, isContent bool, alreadyMaps ...map[string]int) {
 	alreadyMap := map[string]int{}
 	if len(alreadyMaps) > 0 {
 		alreadyMap = alreadyMaps[0]
@@ -504,7 +504,7 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, alr
 		return
 	}
 	if o.sameStructs[types] != "" {
-		o.setType(schemeRef, o.sameStructs[types], alreadyMap)
+		o.setType(schemeRef, o.sameStructs[types], false, alreadyMap)
 		return
 	}
 	tempTypes := ""
@@ -514,7 +514,7 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, alr
 		types = tempTypes
 		schemeRef.Value.Type = "array"
 		schemeRef.Value.Items = &openapi3.SchemaRef{}
-		o.setType(schemeRef.Value.Items, types, alreadyMap)
+		o.setType(schemeRef.Value.Items, types, false, alreadyMap)
 		return
 	}
 	// 判断是否是对象
@@ -527,18 +527,15 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, alr
 		schemeRef.Value.Properties = map[string]*openapi3.SchemaRef{
 			mapTypes: {},
 		}
-		o.setType(schemeRef.Value.Properties[mapTypes], types, alreadyMap)
+		o.setType(schemeRef.Value.Properties[mapTypes], types, false, alreadyMap)
 		return
 	}
 	strInfo := o.structs[types]
 	if strInfo == nil {
 		schemeRef.Value.Type = o.getType(types)
-		tempTypes = o.getSystemType(types)
-		if tempTypes == "" {
-			// 非系统类型则设置默认值
+		if isContent {
 			schemeRef.Value.Default = types
 		} else if schemeRef.Value.Type != types {
-			// 否则设置格式化
 			schemeRef.Value.Format = types
 		}
 	} else {
@@ -575,7 +572,7 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, alreadyMaps ...map[string
 				Description: v2.comment,
 			},
 		}
-		o.setType(fieldSchemaRef, v2.fieldType, alreadyMap)
+		o.setType(fieldSchemaRef, v2.fieldType, false, alreadyMap)
 		for k3, v3 := range v2.extends {
 			switch k3 {
 			case "minimum":
@@ -632,7 +629,7 @@ func (o *openapiHandle) getTypeValue(types string, value string) (rs interface{}
 	return rs
 }
 
-func (o *openapiHandle) getSystemType(s string) string {
+func (o *openapiHandle) getType(s string) string {
 	switch s {
 	case "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64":
 		return "integer"
@@ -640,39 +637,8 @@ func (o *openapiHandle) getSystemType(s string) string {
 		return "number"
 	case "bool":
 		return "boolean"
-	case "time.Time":
-		return "string"
 	case "integer", "number", "string", "boolean":
 		return s
-	case "binary", "base64":
-		// 文件类型
-		return "string"
-	}
-	tempTypes := ""
-	// 判断是否是数组
-	tempTypes = strings.TrimPrefix(s, "[]")
-	if tempTypes != s {
-		if o.getSystemType(tempTypes) != "" {
-			return "array"
-		}
-		return ""
-	}
-	// 判断是否是对象
-	tempTypes = strings.TrimPrefix(s, "map[")
-	if tempTypes != s {
-		type1, type2 := getIndexFirst(tempTypes, "]")
-		if o.getSystemType(type1) != "" && o.getSystemType(type2) != "" {
-			return "object"
-		}
-		return ""
-	}
-	return ""
-}
-
-func (o *openapiHandle) getType(s string) string {
-	rs := o.getSystemType(s)
-	if rs != "" {
-		return rs
 	}
 	return "string"
 }

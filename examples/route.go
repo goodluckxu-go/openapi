@@ -92,3 +92,16 @@ func (a Admin) Logout() {
 func Index() {
 
 }
+
+type UploadRequest struct {
+	FileBinary string `json:"file_binary" type:"binary"` // 上传文件
+	FileBase64 string `json:"file_base64" type:"binary"` // 上传文件
+}
+
+// Upload 上传文件
+// @summary: 上传文件
+// @body: in=multipart/form-data; content=examples.UploadRequest; desc=上传文件
+// @router: method=get;path=/upload
+func Upload() {
+
+}

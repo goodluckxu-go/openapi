@@ -156,7 +156,7 @@ components:
                 summary:
                     type: string
                 value:
-                    default: interface{}
+                    format: interface{}
                     type: string
             type: object
             xml:
@@ -211,7 +211,7 @@ components:
                 description:
                     type: string
                 example:
-                    default: interface{}
+                    format: interface{}
                     type: string
                 examples:
                     properties:
@@ -300,11 +300,11 @@ components:
                 parameters:
                     properties:
                         string:
-                            default: interface{}
+                            format: interface{}
                             type: string
                     type: object
                 requestBody:
-                    default: interface{}
+                    format: interface{}
                     type: string
                 server:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server'
@@ -338,7 +338,7 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Encoding'
                     type: object
                 example:
-                    default: interface{}
+                    format: interface{}
                     type: string
                 examples:
                     properties:
@@ -457,7 +457,7 @@ components:
                 description:
                     type: string
                 example:
-                    default: interface{}
+                    format: interface{}
                     type: string
                 examples:
                     properties:
@@ -657,7 +657,7 @@ components:
                         $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
                     type: array
                 default:
-                    default: interface{}
+                    format: interface{}
                     type: string
                 deprecated:
                     format: bool
@@ -668,11 +668,11 @@ components:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Discriminator'
                 enum:
                     items:
-                        default: interface{}
+                        format: interface{}
                         type: string
                     type: array
                 example:
-                    default: interface{}
+                    format: interface{}
                     type: string
                 exclusiveMaximum:
                     format: bool
@@ -918,13 +918,11 @@ components:
                 header:
                     properties:
                         github.com.getkin.kin-openapi.openapi3.Header:
-                            default: ""
                             type: string
                     type: object
                 schema:
                     properties:
                         github.com.getkin.kin-openapi.openapi3.Schema:
-                            default: ""
                             type: string
                     type: object
             type: object
@@ -974,6 +972,19 @@ components:
             type: object
             xml:
                 name: ResponseSuccess
+        github.com.goodluckxu-go.openapi.examples.UploadRequest:
+            properties:
+                file_base64:
+                    description: 上传文件
+                    format: binary
+                    type: string
+                file_binary:
+                    description: 上传文件
+                    format: binary
+                    type: string
+            type: object
+            xml:
+                name: UploadRequest
         github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess:
             properties:
                 create_time:
@@ -1110,6 +1121,25 @@ paths:
                                 type: string
                     description: 系统内部错误
             summary: 测试结构体递归注释
+    /upload:
+        get:
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            $ref: '#/components/schemas/github.com.goodluckxu-go.openapi.examples.UploadRequest'
+                description: 上传文件
+            responses:
+                "200":
+                    description: Success
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                default: 服务器链接失败
+                                type: string
+                    description: 系统内部错误
+            summary: 上传文件
     /user/{id}:
         get:
             description: 根据用户id查找用户信息
