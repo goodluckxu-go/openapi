@@ -1424,6 +1424,16 @@
         "/admin/login": {
             "post": {
                 "description": "登录后返回token信息",
+                "parameters": [
+                    {
+                        "description": "用户名称",
+                        "in": "query",
+                        "name": "type",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1487,6 +1497,16 @@
         "/admin/logout": {
             "delete": {
                 "description": "清除后端的登录缓存",
+                "parameters": [
+                    {
+                        "description": "用户名称",
+                        "in": "query",
+                        "name": "type",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -1539,6 +1559,16 @@
         },
         "/index": {
             "get": {
+                "parameters": [
+                    {
+                        "description": "用户名称",
+                        "in": "query",
+                        "name": "type",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -1567,6 +1597,16 @@
         },
         "/upload": {
             "get": {
+                "parameters": [
+                    {
+                        "description": "用户名称",
+                        "in": "query",
+                        "name": "type",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -1612,6 +1652,14 @@
                         "description": "用户性别",
                         "in": "query",
                         "name": "sex",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "用户名称",
+                        "in": "query",
+                        "name": "type",
                         "schema": {
                             "type": "string"
                         }
@@ -1685,6 +1733,14 @@
                             "maximum": 10,
                             "minimum": 1,
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "用户名称",
+                        "in": "query",
+                        "name": "type",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],

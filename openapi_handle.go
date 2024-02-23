@@ -652,6 +652,7 @@ func (o *openapiHandle) generateDoc(docPath string) {
 	o.setOpenAPIByDoc(o.t, asts.docs)
 	// 处理通用路由
 	o.globalRoutes["@res"] = asts.docs["@global.res"]
+	o.globalRoutes["@param"] = asts.docs["@global.param"]
 }
 
 func (o *openapiHandle) setOpenAPIByDoc(dist any, dataMap map[string]interface{}) {

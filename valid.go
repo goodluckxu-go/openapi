@@ -41,12 +41,26 @@ var (
 		"@components.securitySchemes._.name":         {valType: validTypeString},
 		"@components.securitySchemes._.in":           {valType: validTypeString, valEnum: []string{"query", "header", "cookie"}},
 		"@components.securitySchemes._.flows":        {valType: validTypeJson},
-		// global
+		// global.res
 		"@global.res":           validRoutesMap["@res"],
 		"@global.res._.status":  validRoutesMap["@res._.status"],
 		"@global.res._.in":      validRoutesMap["@res._.in"],
 		"@global.res._.content": validRoutesMap["@res._.content"],
 		"@global.res._.desc":    validRoutesMap["@res._.desc"],
+		// global.param
+		"@global.param":             validRoutesMap["@param"],
+		"@global.param._.in":        validRoutesMap["@param._.in"],
+		"@global.param._.name":      validRoutesMap["@param._.name"],
+		"@global.param._.type":      validRoutesMap["@param._.type"],
+		"@global.param._.required":  validRoutesMap["@param._.required"],
+		"@global.param._.desc":      validRoutesMap["@param._.desc"],
+		"@global.param._.minimum":   validRoutesMap["@param._.minimum"],
+		"@global.param._.maximum":   validRoutesMap["@param._.maximum"],
+		"@global.param._.minLength": validRoutesMap["@param._.minLength"],
+		"@global.param._.maxLength": validRoutesMap["@param._.maxLength"],
+		"@global.param._.example":   validRoutesMap["@param._.example"],
+		"@global.param._.default":   validRoutesMap["@param._.default"],
+		"@global.param._.enum":      validRoutesMap["@param._.enum"],
 	}
 
 	validRoutesMap = map[string]*validStruct{

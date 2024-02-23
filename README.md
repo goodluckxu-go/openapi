@@ -50,6 +50,8 @@ package main
 ~~~
 
 #### docs.go 文档中定义公共的 route.go 中的属性，和 route.go 的注释一致，在@后面添加global.
+- @global.res  公共返回，和路由的一致
+- @global.param  公共参数，和路由的一致
 ~~~go
 // @global.res: status=500; in=application/json; content=服务器链接失败; desc=系统内部错误
 package main
