@@ -60,11 +60,6 @@ type astHandle struct {
 	sameStructs    map[string]string
 }
 
-type strCutInfo struct {
-	man   string // 主要
-	other string // 其他
-}
-
 func (a *astHandle) load(filePath string, modName string, loadType astLoadType, modDir ...string) (err error) {
 	filePath, err = filepath.Abs(filePath)
 	if err != nil {
@@ -245,27 +240,11 @@ func (a *astHandle) parseCommentLine(
 	}
 	switch validData.valType {
 	case validTypeString:
-		validTitle := value
-		var cutInfo *strCutInfo
-		if len(validData.strCutOther) == 2 {
-			list := strings.Split(value, validData.strCutOther[0])
-			if len(list) > 1 && strings.HasSuffix(list[len(list)-1], validData.strCutOther[1]) {
-				validTitle = list[0]
-				cutInfo = &strCutInfo{
-					man:   list[0],
-					other: strings.TrimSuffix(strings.Join(list[1:], validData.strCutOther[0]), validData.strCutOther[1]),
-				}
-			}
-		}
-		if len(validData.valEnum) > 0 && inArray(validTitle, validData.valEnum) == -1 {
-			err = a.errorPos(fmt.Sprintf(errorNotIn, validTitle, strings.Join(validData.valEnum, ",")), pos)
+		if len(validData.valEnum) > 0 && inArray(value, validData.valEnum) == -1 {
+			err = a.errorPos(fmt.Sprintf(errorNotIn, value, strings.Join(validData.valEnum, ",")), pos)
 			return
 		}
-		if cutInfo != nil {
-			rsMap[key] = cutInfo
-		} else {
-			rsMap[key] = value
-		}
+		rsMap[key] = value
 	case validTypeInteger:
 		if len(validData.valEnum) > 0 && inArray(value, validData.valEnum) == -1 {
 			err = a.errorPos(fmt.Sprintf(errorNotIn, value, strings.Join(validData.valEnum, ",")), pos)
@@ -298,7 +277,12 @@ func (a *astHandle) parseCommentLine(
 		}
 		rs := strings.Split(value, validData.cutListSign)
 		for k, v := range rs {
-			rs[k] = strings.Trim(v, " ")
+			v = strings.Trim(v, " ")
+			if len(validData.valEnum) > 0 && inArray(v, validData.valEnum) == -1 {
+				err = a.errorPos(fmt.Sprintf(errorNotIn, v, strings.Join(validData.valEnum, ",")), pos)
+				return
+			}
+			rs[k] = v
 		}
 		rsMap[key] = rs
 	case validTypeMapArray, validTypeMap:

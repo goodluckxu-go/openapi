@@ -6,7 +6,6 @@ type validStruct struct {
 	cutKeyValSign string   // 键值截取标志
 	valEnum       []string // 枚举验证
 	isUnique      bool     // 是否唯一
-	strCutOther   []string // 字符串切割其他值 0-左边界,1-右边界
 	isSort        bool     // 是否map排序
 }
 
@@ -45,7 +44,7 @@ var (
 		// global
 		"@global.res":           {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
 		"@global.res._.status":  {valType: validTypeInteger},
-		"@global.res._.in":      {valType: validTypeString, valEnum: []string{"application/json", "application/xml"}},
+		"@global.res._.in":      {valType: validTypeArray, cutListSign: thirdListCutSign, valEnum: []string{"application/json", "application/xml"}},
 		"@global.res._.content": {valType: validTypeString},
 		"@global.res._.desc":    {valType: validTypeString},
 	}
@@ -58,7 +57,7 @@ var (
 		"@param":             {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign, valEnum: []string{"required"}},
 		"@param._.in":        {valType: validTypeString, valEnum: []string{"query", "header", "path", "cookie"}},
 		"@param._.name":      {valType: validTypeString},
-		"@param._.type":      {valType: validTypeString, strCutOther: []string{"(", ")"}, valEnum: []string{"integer", "number", "string", "boolean"}},
+		"@param._.type":      {valType: validTypeString},
 		"@param._.required":  {valType: validTypeBool},
 		"@param._.desc":      {valType: validTypeString},
 		"@param._.minimum":   {valType: validTypeInteger},
@@ -70,13 +69,13 @@ var (
 		"@param._.enum":      {valType: validTypeArray, cutListSign: thirdListCutSign},
 		// body
 		"@body":           {valType: validTypeMap, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@body._.in":      {valType: validTypeString, valEnum: []string{"application/json", "application/xml", "application/x-www-form-urlencoded"}},
+		"@body._.in":      {valType: validTypeArray, cutListSign: thirdListCutSign, valEnum: []string{"application/json", "application/xml", "application/x-www-form-urlencoded"}},
 		"@body._.content": {valType: validTypeString},
 		"@body._.desc":    {valType: validTypeString},
 		// res
 		"@res":           {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
 		"@res._.status":  {valType: validTypeInteger},
-		"@res._.in":      {valType: validTypeString, valEnum: []string{"application/json", "application/xml"}},
+		"@res._.in":      {valType: validTypeArray, cutListSign: thirdListCutSign, valEnum: []string{"application/json", "application/xml"}},
 		"@res._.content": {valType: validTypeString},
 		"@res._.desc":    {valType: validTypeString},
 		// security

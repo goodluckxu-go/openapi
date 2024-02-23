@@ -9,7 +9,10 @@
                     },
                     "Schema": {}
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "AdditionalProperties"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Callback": {
                 "description": "Callback is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#callback-object\n",
@@ -23,7 +26,10 @@
                         "type": "object"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Callback"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.CallbackRef": {
                 "description": "CallbackRef represents either a Callback or a $ref to a Callback.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -41,7 +47,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "CallbackRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Components": {
                 "description": "Components is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#components-object\n",
@@ -119,7 +128,10 @@
                         "type": "object"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Components"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Contact": {
                 "description": "Contact is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#contact-object\n",
@@ -134,7 +146,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Contact"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Discriminator": {
                 "description": "Discriminator is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminator-object\n",
@@ -152,7 +167,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Discriminator"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Encoding": {
                 "description": "Encoding is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#encoding-object\n",
@@ -180,7 +198,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Encoding"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Example": {
                 "description": "Example is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#example-object\n",
@@ -199,7 +220,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Example"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.ExampleRef": {
                 "description": "ExampleRef represents either a Example or a $ref to a Example.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -217,7 +241,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "ExampleRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.ExternalDocs": {
                 "description": "ExternalDocs is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#external-documentation-object\n",
@@ -229,7 +256,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "ExternalDocs"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Header": {
                 "description": "Header is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#header-object\n",
@@ -290,7 +320,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Header"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.HeaderRef": {
                 "description": "HeaderRef represents either a Header or a $ref to a Header.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -308,7 +341,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "HeaderRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Info": {
                 "description": "Info is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#info-object\n",
@@ -334,7 +370,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Info"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.License": {
                 "description": "License is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#license-object\n",
@@ -347,7 +386,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "License"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Link": {
                 "description": "Link is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#link-object\n",
@@ -378,7 +420,10 @@
                         "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Link"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.LinkRef": {
                 "description": "LinkRef represents either a Link or a $ref to a Link.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -396,7 +441,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "LinkRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.MediaType": {
                 "description": "MediaType is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#media-type-object\n",
@@ -425,7 +473,10 @@
                         "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "MediaType"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.OAuthFlow": {
                 "description": "OAuthFlow is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauth-flow-object\n",
@@ -449,7 +500,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "OAuthFlow"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.OAuthFlows": {
                 "description": "OAuthFlows is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauth-flows-object\n",
@@ -467,7 +521,10 @@
                         "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.OAuthFlow"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "OAuthFlows"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Operation": {
                 "description": "Operation represents \"operation\" specified by\" OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operation-object\n",
@@ -535,7 +592,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Operation"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Parameter": {
                 "description": "Parameter is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#parameter-object\n",
@@ -596,7 +656,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Parameter"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.ParameterRef": {
                 "description": "ParameterRef represents either a Parameter or a $ref to a Parameter.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -614,7 +677,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "ParameterRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.PathItem": {
                 "description": "PathItem is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#path-item-object\n",
@@ -668,7 +734,10 @@
                         "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "PathItem"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Paths": {
                 "description": "Paths is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#paths-object\n",
@@ -682,7 +751,10 @@
                         "type": "object"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Paths"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.RequestBody": {
                 "description": "RequestBody is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#request-body-object\n",
@@ -703,7 +775,10 @@
                         "type": "boolean"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "RequestBody"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.RequestBodyRef": {
                 "description": "RequestBodyRef represents either a RequestBody or a $ref to a RequestBody.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -721,7 +796,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "RequestBodyRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Response": {
                 "description": "Response is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#response-object\n",
@@ -754,7 +832,10 @@
                         "type": "object"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Response"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.ResponseRef": {
                 "description": "ResponseRef represents either a Response or a $ref to a Response.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -772,7 +853,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "ResponseRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Responses": {
                 "description": "Responses is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responses-object\n",
@@ -786,7 +870,10 @@
                         "type": "object"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Responses"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Schema": {
                 "description": "Schema is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schema-object\n",
@@ -940,7 +1027,10 @@
                         "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.XML"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Schema"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.SchemaRef": {
                 "description": "SchemaRef represents either a Schema or a $ref to a Schema.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -958,7 +1048,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "SchemaRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.SecurityScheme": {
                 "description": "SecurityScheme is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#security-scheme-object\n",
@@ -988,7 +1081,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "SecurityScheme"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.SecuritySchemeRef": {
                 "description": "SecuritySchemeRef represents either a SecurityScheme or a $ref to a SecurityScheme.\nWhen serializing and both fields are set, Ref is preferred over Value.\n",
@@ -1006,7 +1102,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "SecuritySchemeRef"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Server": {
                 "description": "Server is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-object\n",
@@ -1027,7 +1126,10 @@
                         "type": "object"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Server"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.ServerVariable": {
                 "description": "ServerVariable is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#server-variable-object\n",
@@ -1045,7 +1147,10 @@
                         "type": "array"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "ServerVariable"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.T": {
                 "description": "T is the root of an OpenAPI v3 document\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#openapi-object\n",
@@ -1096,7 +1201,10 @@
                         "$ref": "#/components/schemas/github.com.getkin.kin-openapi.openapi3.visitedComponent"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "T"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.Tag": {
                 "description": "Tag is specified by OpenAPI/Swagger 3.0 standard.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#tag-object\n",
@@ -1111,7 +1219,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "Tag"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.XML": {
                 "description": "XML is specified by OpenAPI/Swagger standard version 3.\nSee https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#xml-object\n",
@@ -1134,13 +1245,16 @@
                         "type": "boolean"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "XML"
+                }
             },
             "github.com.getkin.kin-openapi.openapi3.visitedComponent": {
                 "properties": {
                     "header": {
                         "properties": {
-                            "github.com/getkin/kin-openapi/openapi3.Header": {
+                            "github.com.getkin.kin-openapi.openapi3.Header": {
                                 "default": "",
                                 "type": "string"
                             }
@@ -1149,7 +1263,7 @@
                     },
                     "schema": {
                         "properties": {
-                            "github.com/getkin/kin-openapi/openapi3.Schema": {
+                            "github.com.getkin.kin-openapi.openapi3.Schema": {
                                 "default": "",
                                 "type": "string"
                             }
@@ -1157,7 +1271,10 @@
                         "type": "object"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "visitedComponent"
+                }
             },
             "github.com.goodluckxu-go.openapi.examples.LoginRequest": {
                 "description": "LoginRequest 是登录参数\n",
@@ -1180,12 +1297,15 @@
                     "password",
                     "code"
                 ],
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "LoginRequest"
+                }
             },
             "github.com.goodluckxu-go.openapi.examples.ResponseError": {
                 "properties": {
                     "code": {
-                        "default": "404",
+                        "default": 404,
                         "description": "错误码",
                         "format": "int",
                         "type": "integer"
@@ -1196,18 +1316,24 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "ResponseError"
+                }
             },
             "github.com.goodluckxu-go.openapi.examples.ResponseSuccess": {
                 "properties": {
                     "code": {
-                        "default": "0",
+                        "default": 0,
                         "description": "操作成功",
                         "format": "int",
                         "type": "integer"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "ResponseSuccess"
+                }
             },
             "github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess": {
                 "properties": {
@@ -1222,7 +1348,7 @@
                         "type": "string"
                     },
                     "id": {
-                        "default": "1",
+                        "default": 1,
                         "description": "主键",
                         "format": "int",
                         "type": "integer"
@@ -1233,7 +1359,10 @@
                         "type": "string"
                     }
                 },
-                "type": "object"
+                "type": "object",
+                "xml": {
+                    "name": "UserListResponseSuccess"
+                }
             }
         },
         "securitySchemes": {
@@ -1503,7 +1632,7 @@
                         "name": "id",
                         "required": true,
                         "schema": {
-                            "default": "1",
+                            "default": 1,
                             "format": "int64",
                             "maximum": 10,
                             "minimum": 1,

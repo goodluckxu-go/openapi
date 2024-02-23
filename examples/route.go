@@ -48,7 +48,7 @@ func (u *User) GetList() {
 // @summary: 用户信息
 // @description: 根据用户id查找用户信息
 // @tags: user
-// @param: in=path; name=id; type=integer(int64); required; desc=主键; minimum=1;maximum=10;default=1
+// @param: in=path; name=id; type=int64; required; desc=主键; minimum=1;maximum=10;default=1
 // @res: status=200; in=application/json; content=examples.UserListResponseSuccess; desc=返回信息
 // @res: status=404; in=application/json; content=examples.ResponseError; desc=获取失败
 // @security: token;projectID=write:pets,read:pets

@@ -7,6 +7,8 @@ components:
                     type: boolean
                 Schema: {}
             type: object
+            xml:
+                name: AdditionalProperties
         github.com.getkin.kin-openapi.openapi3.Callback:
             description: |
                 Callback is specified by OpenAPI/Swagger standard version 3.
@@ -18,6 +20,8 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem'
                     type: object
             type: object
+            xml:
+                name: Callback
         github.com.getkin.kin-openapi.openapi3.CallbackRef:
             description: |
                 CallbackRef represents either a Callback or a $ref to a Callback.
@@ -32,6 +36,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: CallbackRef
         github.com.getkin.kin-openapi.openapi3.Components:
             description: |
                 Components is specified by OpenAPI/Swagger standard version 3.
@@ -83,6 +89,8 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SecuritySchemeRef'
                     type: object
             type: object
+            xml:
+                name: Components
         github.com.getkin.kin-openapi.openapi3.Contact:
             description: |
                 Contact is specified by OpenAPI/Swagger standard version 3.
@@ -95,6 +103,8 @@ components:
                 url:
                     type: string
             type: object
+            xml:
+                name: Contact
         github.com.getkin.kin-openapi.openapi3.Discriminator:
             description: |
                 Discriminator is specified by OpenAPI/Swagger standard version 3.
@@ -109,6 +119,8 @@ components:
                     description: required
                     type: string
             type: object
+            xml:
+                name: Discriminator
         github.com.getkin.kin-openapi.openapi3.Encoding:
             description: |
                 Encoding is specified by OpenAPI/Swagger 3.0 standard.
@@ -130,6 +142,8 @@ components:
                 style:
                     type: string
             type: object
+            xml:
+                name: Encoding
         github.com.getkin.kin-openapi.openapi3.Example:
             description: |
                 Example is specified by OpenAPI/Swagger 3.0 standard.
@@ -145,6 +159,8 @@ components:
                     default: interface{}
                     type: string
             type: object
+            xml:
+                name: Example
         github.com.getkin.kin-openapi.openapi3.ExampleRef:
             description: |
                 ExampleRef represents either a Example or a $ref to a Example.
@@ -159,6 +175,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: ExampleRef
         github.com.getkin.kin-openapi.openapi3.ExternalDocs:
             description: |
                 ExternalDocs is specified by OpenAPI/Swagger standard version 3.
@@ -169,6 +187,8 @@ components:
                 url:
                     type: string
             type: object
+            xml:
+                name: ExternalDocs
         github.com.getkin.kin-openapi.openapi3.Header:
             description: |
                 Header is specified by OpenAPI/Swagger 3.0 standard.
@@ -213,6 +233,8 @@ components:
                 style:
                     type: string
             type: object
+            xml:
+                name: Header
         github.com.getkin.kin-openapi.openapi3.HeaderRef:
             description: |
                 HeaderRef represents either a Header or a $ref to a Header.
@@ -227,6 +249,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: HeaderRef
         github.com.getkin.kin-openapi.openapi3.Info:
             description: |
                 Info is specified by OpenAPI/Swagger standard version 3.
@@ -247,6 +271,8 @@ components:
                     description: Required
                     type: string
             type: object
+            xml:
+                name: Info
         github.com.getkin.kin-openapi.openapi3.License:
             description: |
                 License is specified by OpenAPI/Swagger standard version 3.
@@ -258,6 +284,8 @@ components:
                 url:
                     type: string
             type: object
+            xml:
+                name: License
         github.com.getkin.kin-openapi.openapi3.Link:
             description: |
                 Link is specified by OpenAPI/Swagger standard version 3.
@@ -281,6 +309,8 @@ components:
                 server:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Server'
             type: object
+            xml:
+                name: Link
         github.com.getkin.kin-openapi.openapi3.LinkRef:
             description: |
                 LinkRef represents either a Link or a $ref to a Link.
@@ -295,6 +325,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: LinkRef
         github.com.getkin.kin-openapi.openapi3.MediaType:
             description: |
                 MediaType is specified by OpenAPI/Swagger 3.0 standard.
@@ -316,6 +348,8 @@ components:
                 schema:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.SchemaRef'
             type: object
+            xml:
+                name: MediaType
         github.com.getkin.kin-openapi.openapi3.OAuthFlow:
             description: |
                 OAuthFlow is specified by OpenAPI/Swagger standard version 3.
@@ -334,6 +368,8 @@ components:
                 tokenUrl:
                     type: string
             type: object
+            xml:
+                name: OAuthFlow
         github.com.getkin.kin-openapi.openapi3.OAuthFlows:
             description: |
                 OAuthFlows is specified by OpenAPI/Swagger standard version 3.
@@ -348,6 +384,8 @@ components:
                 password:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.OAuthFlow'
             type: object
+            xml:
+                name: OAuthFlows
         github.com.getkin.kin-openapi.openapi3.Operation:
             description: |
                 Operation represents "operation" specified by" OpenAPI/Swagger 3.0 standard.
@@ -395,6 +433,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: Operation
         github.com.getkin.kin-openapi.openapi3.Parameter:
             description: |
                 Parameter is specified by OpenAPI/Swagger 3.0 standard.
@@ -439,6 +479,8 @@ components:
                 style:
                     type: string
             type: object
+            xml:
+                name: Parameter
         github.com.getkin.kin-openapi.openapi3.ParameterRef:
             description: |
                 ParameterRef represents either a Parameter or a $ref to a Parameter.
@@ -453,6 +495,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: ParameterRef
         github.com.getkin.kin-openapi.openapi3.PathItem:
             description: |
                 PathItem is specified by OpenAPI/Swagger standard version 3.
@@ -491,6 +535,8 @@ components:
                 trace:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.Operation'
             type: object
+            xml:
+                name: PathItem
         github.com.getkin.kin-openapi.openapi3.Paths:
             description: |
                 Paths is specified by OpenAPI/Swagger standard version 3.
@@ -502,6 +548,8 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.PathItem'
                     type: object
             type: object
+            xml:
+                name: Paths
         github.com.getkin.kin-openapi.openapi3.RequestBody:
             description: |
                 RequestBody is specified by OpenAPI/Swagger 3.0 standard.
@@ -518,6 +566,8 @@ components:
                     format: bool
                     type: boolean
             type: object
+            xml:
+                name: RequestBody
         github.com.getkin.kin-openapi.openapi3.RequestBodyRef:
             description: |
                 RequestBodyRef represents either a RequestBody or a $ref to a RequestBody.
@@ -532,6 +582,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: RequestBodyRef
         github.com.getkin.kin-openapi.openapi3.Response:
             description: |
                 Response is specified by OpenAPI/Swagger 3.0 standard.
@@ -555,6 +607,8 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.LinkRef'
                     type: object
             type: object
+            xml:
+                name: Response
         github.com.getkin.kin-openapi.openapi3.ResponseRef:
             description: |
                 ResponseRef represents either a Response or a $ref to a Response.
@@ -569,6 +623,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: ResponseRef
         github.com.getkin.kin-openapi.openapi3.Responses:
             description: |
                 Responses is specified by OpenAPI/Swagger 3.0 standard.
@@ -580,6 +636,8 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ResponseRef'
                     type: object
             type: object
+            xml:
+                name: Responses
         github.com.getkin.kin-openapi.openapi3.Schema:
             description: |
                 Schema is specified by OpenAPI/Swagger 3.0 standard.
@@ -691,6 +749,8 @@ components:
                 xml:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.XML'
             type: object
+            xml:
+                name: Schema
         github.com.getkin.kin-openapi.openapi3.SchemaRef:
             description: |
                 SchemaRef represents either a Schema or a $ref to a Schema.
@@ -705,6 +765,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: SchemaRef
         github.com.getkin.kin-openapi.openapi3.SecurityScheme:
             description: |
                 SecurityScheme is specified by OpenAPI/Swagger standard version 3.
@@ -727,6 +789,8 @@ components:
                 type:
                     type: string
             type: object
+            xml:
+                name: SecurityScheme
         github.com.getkin.kin-openapi.openapi3.SecuritySchemeRef:
             description: |
                 SecuritySchemeRef represents either a SecurityScheme or a $ref to a SecurityScheme.
@@ -741,6 +805,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: SecuritySchemeRef
         github.com.getkin.kin-openapi.openapi3.Server:
             description: |
                 Server is specified by OpenAPI/Swagger standard version 3.
@@ -757,6 +823,8 @@ components:
                             $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.ServerVariable'
                     type: object
             type: object
+            xml:
+                name: Server
         github.com.getkin.kin-openapi.openapi3.ServerVariable:
             description: |
                 ServerVariable is specified by OpenAPI/Swagger standard version 3.
@@ -771,6 +839,8 @@ components:
                         type: string
                     type: array
             type: object
+            xml:
+                name: ServerVariable
         github.com.getkin.kin-openapi.openapi3.T:
             description: |
                 T is the root of an OpenAPI v3 document
@@ -807,6 +877,8 @@ components:
                 visited:
                     $ref: '#/components/schemas/github.com.getkin.kin-openapi.openapi3.visitedComponent'
             type: object
+            xml:
+                name: T
         github.com.getkin.kin-openapi.openapi3.Tag:
             description: |
                 Tag is specified by OpenAPI/Swagger 3.0 standard.
@@ -819,6 +891,8 @@ components:
                 name:
                     type: string
             type: object
+            xml:
+                name: Tag
         github.com.getkin.kin-openapi.openapi3.XML:
             description: |
                 XML is specified by OpenAPI/Swagger standard version 3.
@@ -837,21 +911,25 @@ components:
                     format: bool
                     type: boolean
             type: object
+            xml:
+                name: XML
         github.com.getkin.kin-openapi.openapi3.visitedComponent:
             properties:
                 header:
                     properties:
-                        github.com/getkin/kin-openapi/openapi3.Header:
+                        github.com.getkin.kin-openapi.openapi3.Header:
                             default: ""
                             type: string
                     type: object
                 schema:
                     properties:
-                        github.com/getkin/kin-openapi/openapi3.Schema:
+                        github.com.getkin.kin-openapi.openapi3.Schema:
                             default: ""
                             type: string
                     type: object
             type: object
+            xml:
+                name: visitedComponent
         github.com.goodluckxu-go.openapi.examples.LoginRequest:
             description: |
                 LoginRequest 是登录参数
@@ -870,10 +948,12 @@ components:
                 - password
                 - code
             type: object
+            xml:
+                name: LoginRequest
         github.com.goodluckxu-go.openapi.examples.ResponseError:
             properties:
                 code:
-                    default: "404"
+                    default: 404
                     description: 错误码
                     format: int
                     type: integer
@@ -882,14 +962,18 @@ components:
                     description: 错误信息
                     type: string
             type: object
+            xml:
+                name: ResponseError
         github.com.goodluckxu-go.openapi.examples.ResponseSuccess:
             properties:
                 code:
-                    default: "0"
+                    default: 0
                     description: 操作成功
                     format: int
                     type: integer
             type: object
+            xml:
+                name: ResponseSuccess
         github.com.goodluckxu-go.openapi.examples.UserListResponseSuccess:
             properties:
                 create_time:
@@ -901,7 +985,7 @@ components:
                     description: 简介
                     type: string
                 id:
-                    default: "1"
+                    default: 1
                     description: 主键
                     format: int
                     type: integer
@@ -910,6 +994,8 @@ components:
                     description: 名称
                     type: string
             type: object
+            xml:
+                name: UserListResponseSuccess
     securitySchemes:
         projectID:
             flows:
@@ -1032,7 +1118,7 @@ paths:
                   name: id
                   required: true
                   schema:
-                    default: "1"
+                    default: 1
                     format: int64
                     maximum: 10
                     minimum: 1

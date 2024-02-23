@@ -1,11 +1,13 @@
 package openapi
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/getkin/kin-openapi/openapi3"
 	"log"
 	"path/filepath"
+	"strconv"
 	"strings"
 )
 
@@ -30,6 +32,9 @@ func (o *openapiHandle) load(routeDir, docPath string) {
 	o.globalRoutes = map[string]interface{}{}
 	o.generateDoc(docPath)
 	o.generateRoute(routeDir)
+	if err := o.t.Validate(context.Background()); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func (o *openapiHandle) noRepeatStructs() {
@@ -313,22 +318,25 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 					body.Value = &openapi3.RequestBody{}
 				}
 				vMap, _ := v.(map[string]interface{})
-				in := toString(vMap["in"])
-				if body.Value.Content == nil {
+				ins, _ := vMap["in"].([]string)
+				if len(ins) > 0 {
 					body.Value.Content = map[string]*openapi3.MediaType{}
-				}
-				mediaType := &openapi3.MediaType{
-					Schema: &openapi3.SchemaRef{},
+					for _, in := range ins {
+						mediaType := &openapi3.MediaType{
+							Schema: &openapi3.SchemaRef{},
+						}
+						if vMap["content"] != nil {
+							o.setType(mediaType.Schema, toString(vMap["content"]))
+						}
+						body.Value.Content[in] = mediaType
+					}
 				}
 				for k1, v1 := range vMap {
 					switch k1 {
-					case "content":
-						o.setType(mediaType.Schema, toString(v1))
 					case "desc":
 						body.Value.Description = toString(v1)
 					}
 				}
-				body.Value.Content[in] = mediaType
 				val.RequestBody = body
 			case "@res":
 				responses := &openapi3.Responses{}
@@ -341,16 +349,18 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 					response := &openapi3.ResponseRef{
 						Value: &openapi3.Response{},
 					}
-					in := toString(v1Map["in"])
-					if in != "" {
+					ins, _ := v1Map["in"].([]string)
+					if len(ins) > 0 {
 						response.Value.Content = map[string]*openapi3.MediaType{}
-						mediaType := &openapi3.MediaType{
-							Schema: &openapi3.SchemaRef{},
+						for _, in := range ins {
+							mediaType := &openapi3.MediaType{
+								Schema: &openapi3.SchemaRef{},
+							}
+							if v1Map["content"] != nil {
+								o.setType(mediaType.Schema, toString(v1Map["content"]))
+							}
+							response.Value.Content[in] = mediaType
 						}
-						if v1Map["content"] != nil {
-							o.setType(mediaType.Schema, toString(v1Map["content"]))
-						}
-						response.Value.Content[in] = mediaType
 					}
 					for k2, v2 := range v1Map {
 						switch k2 {
@@ -406,15 +416,10 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 						Value: &openapi3.Schema{},
 					}
 				}
-				if cutInfo, ok := v.(*strCutInfo); ok {
-					valType := o.getType(cutInfo.man)
-					val.Value.Schema.Value.Type = valType
-					val.Value.Schema.Value.Format = cutInfo.other
-					if cutInfo.other == "" && valType != cutInfo.man {
-						val.Value.Schema.Value.Format = cutInfo.man
-					}
-				} else {
-					val.Value.Schema.Value.Type = toString(v)
+				valType := toString(v)
+				val.Value.Schema.Value.Type = o.getType(valType)
+				if val.Value.Schema.Value.Type != valType {
+					val.Value.Schema.Value.Format = valType
 				}
 			case "required":
 				if v == "true" {
@@ -463,7 +468,7 @@ func (o *openapiHandle) setOpenAPIByRoute(dist any, dataMap map[string]interface
 						Value: &openapi3.Schema{},
 					}
 				}
-				val.Value.Schema.Value.Default = v
+				val.Value.Schema.Value.Default = o.getTypeValue(toString(dataMap["type"]), toString(v))
 			case "enum":
 				if val.Value.Schema == nil {
 					val.Value.Schema = &openapi3.SchemaRef{
@@ -517,6 +522,7 @@ func (o *openapiHandle) setType(schemeRef *openapi3.SchemaRef, types string, alr
 	if tempTypes != types {
 		mapTypes := ""
 		mapTypes, types = getIndexFirst(tempTypes, "]")
+		mapTypes = strings.ReplaceAll(mapTypes, "/", ".")
 		schemeRef.Value.Type = "object"
 		schemeRef.Value.Properties = map[string]*openapi3.SchemaRef{
 			mapTypes: {},
@@ -556,6 +562,9 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, alreadyMaps ...map[string
 			Type:        "object",
 			Description: strInfo.comment,
 			Properties:  map[string]*openapi3.SchemaRef{},
+			XML: &openapi3.XML{
+				Name: strings.TrimPrefix(filepath.Ext(strInfo.name), "."),
+			},
 		},
 	}
 	var requiredList []string
@@ -592,7 +601,7 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, alreadyMaps ...map[string
 				fieldSchemaRef.Value.Example = v3[0]
 			case "default":
 				// 默认值
-				fieldSchemaRef.Value.Default = v3[0]
+				fieldSchemaRef.Value.Default = o.getTypeValue(v2.fieldType, v3[0])
 			case "enum":
 				// 限定值
 				fieldSchemaRef.Value.Enum = toSliceInterface(v3)
@@ -607,6 +616,20 @@ func (o *openapiHandle) setScheme(strInfo *structInfo, alreadyMaps ...map[string
 	schemaRef.Value.Required = requiredList
 	o.schemas[strInfo.name] = schemaRef
 	return
+}
+
+func (o *openapiHandle) getTypeValue(types string, value string) (rs interface{}) {
+	rs = value
+	types = o.getType(types)
+	switch types {
+	case "integer":
+		rs, _ = strconv.ParseInt(value, 10, 64)
+	case "number":
+		rs, _ = strconv.ParseFloat(value, 64)
+	case "boolean":
+		rs, _ = strconv.ParseBool(value)
+	}
+	return rs
 }
 
 func (o *openapiHandle) getSystemType(s string) string {
