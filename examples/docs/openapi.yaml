@@ -1140,7 +1140,7 @@ paths:
                     description: 系统内部错误
             summary: 测试结构体递归注释
     /upload:
-        get:
+        put:
             parameters:
                 - description: 类型
                   in: query

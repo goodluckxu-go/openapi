@@ -101,7 +101,7 @@ type UploadRequest struct {
 // Upload 上传文件
 // @summary: 上传文件
 // @body: in=multipart/form-data; content=examples.UploadRequest; desc=上传文件
-// @router: method=get;path=/upload
+// @router: method=put;path=/upload
 func Upload() {
 
 }

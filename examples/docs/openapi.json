@@ -1596,7 +1596,7 @@
             }
         },
         "/upload": {
-            "get": {
+            "put": {
                 "parameters": [
                     {
                         "description": "类型",
