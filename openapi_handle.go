@@ -157,7 +157,7 @@ func (o *openapiHandle) generateRoute(rootDir, routeDir string) {
 	routes := map[string]map[string]interface{}{}
 	for _, filePath := range fileList {
 		asts := new(astHandle)
-		err := asts.load(filePath, projectModName, astLoadTypeRoute)
+		err := asts.load(filePath, projectModName, astLoadTypeRoute|astLoadTypeStruct)
 		if err != nil {
 			log.Fatal(err)
 		}
