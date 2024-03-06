@@ -97,7 +97,7 @@ var (
 		"@security._": {valType: validTypeArray, cutListSign: thirdListCutSign},
 		// @router
 		"@router":          {valType: validTypeMapArray, cutListSign: secondListCutSign, cutKeyValSign: secondKeyValueCutSign},
-		"@router._.method": {valType: validTypeString, valEnum: []string{"get", "put", "post", "delete", "options", "head", "patch", "trace"}},
+		"@router._.method": {valType: validTypeString, valEnum: []string{"get", "put", "post", "delete", "options", "head", "patch"}},
 		"@router._.path":   {valType: validTypeString},
 	}
 )

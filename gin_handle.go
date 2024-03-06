@@ -73,60 +73,19 @@ func (g *ginHandle) generateRoutes() string {
 	}
 	content += ") {\n"
 	for _, v := range g.routesFunc {
-		if anyPathMaps[v.path] && v.method != "Any" {
-			continue
-		}
-		if v.method != "Any" && v.summary != "" {
-			content += "\t// " + v.summary + "\n"
-		}
+		// 添加注释
+		content += "\t// " + v.summary + "\n"
 		content += "\troutes." + v.method + "(\"" + v.path + "\", setHandlers("
 		// 添加中间件
-		if v.method == "Any" {
-			content += "methodMiddleware("
-			for k1, v1 := range pathMaps[v.path] {
-				if k1 != 0 {
-					content += ", "
-				}
-				content += "\"" + strings.ToUpper(v1.method) + "\""
-			}
-			content += "), "
-		}
 		for _, v1 := range v.security {
 			middlewareName := underlineToHumpFirstLower(v1) + "Middleware"
 			content += middlewareName + ", "
 		}
-		if v.method == "Any" {
-			content += "func(ctx *gin.Context) {\n"
-			content += "\t\tswitch ctx.Request.Method {\n"
-			for _, v1 := range pathMaps[v.path] {
-				content += "\t\tcase \"" + strings.ToUpper(v1.method) + "\":\n"
-				if v.summary != "" {
-					content += "\t\t\t// " + v1.summary + "\n"
-				}
-				content += "\t\t\t" + g.getStructAlias(v) + "." + v.funcName + "(ctx)\n"
-			}
-			content += "\t\t}\n"
-			content += "\t}"
-		} else {
-			content += g.getStructAlias(v) + "." + v.funcName
-		}
+		// 添加路由
+		content += g.getStructAlias(v) + "." + v.funcName
 		content += ")...)\n"
 
 	}
-	content += "}\n\n"
-	// 增加method验证中间件
-	content += "func methodMiddleware(methods ...string) gin.HandlerFunc {\n"
-	content += "\treturn func(ctx *gin.Context) {\n"
-	content += "\t\tfor _, method := range methods {\n"
-	content += "\t\t\tif method == ctx.Request.Method {\n"
-	content += "\t\t\t\tctx.Next()\n"
-	content += "\t\t\t\treturn\n"
-	content += "\t\t\t}\n"
-	content += "\t\t}\n"
-	content += "\t\thttp.NotFound(ctx.Writer, ctx.Request)\n"
-	content += "\t\tctx.Abort()\n"
-	content += "\t\treturn\n"
-	content += "\t}\n"
 	content += "}\n\n"
 	// 增加设置handlers方法
 	content += "func setHandlers(handlers ...gin.HandlerFunc) (rs []gin.HandlerFunc) {\n"
@@ -179,7 +138,6 @@ func (g *ginHandle) generateImport() string {
 	aliasMap := map[string]int{}
 	content := "import (\n"
 	content += "\t\"" + "github.com/gin-gonic/gin" + "\"\n"
-	content += "\t\"net/http\"\n"
 	for _, v := range g.routesFunc {
 		if importsMap[v.funcImport] {
 			continue
