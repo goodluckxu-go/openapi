@@ -74,7 +74,7 @@ package main
 //  验证值，使用 @components.securitySchemes 中定义的 field 的值
 //  例如：token;projectID=write:pets,read:pets 表示 存在token验证，projectID验证数组是[write:pets,read:pets]
 // @router: |-
-//  method=get,put ,post,delete,options,head,patch,trace中的值;
+//  method=get,put ,post,delete,options,head,patch中的值;
 //  path=路由地址，例如：/user/{id}。其中{id}表示@param中的in为path时的关联
 func Login() {
 }
