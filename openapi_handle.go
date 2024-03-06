@@ -208,10 +208,6 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 			if pathItem.Patch != nil {
 				operation = pathItem.Patch
 			}
-		case "trace":
-			if pathItem.Trace != nil {
-				operation = pathItem.Trace
-			}
 		}
 		// 处理通用路由
 		for k1, v1 := range o.globalRoutes {
@@ -249,8 +245,6 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 			pathItem.Head = operation
 		case "patch":
 			pathItem.Patch = operation
-		case "trace":
-			pathItem.Trace = operation
 		}
 		o.t.Paths.Set(path, pathItem)
 	}
