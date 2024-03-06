@@ -21,7 +21,7 @@ type openapiHandle struct {
 	globalRoutes  map[string]interface{}
 }
 
-func (o *openapiHandle) load(routeDir, docPath string) {
+func (o *openapiHandle) load(rootDir, routeDir, docPath string) {
 	o.t = &openapi3.T{
 		OpenAPI: Version,
 	}
@@ -31,13 +31,29 @@ func (o *openapiHandle) load(routeDir, docPath string) {
 	o.sameStructs = map[string]string{}
 	o.globalRoutes = map[string]interface{}{}
 	o.generateDoc(docPath)
-	o.generateRoute(routeDir)
+	o.generateRoute(rootDir, routeDir)
 	if err := o.t.Validate(context.Background()); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func (o *openapiHandle) noRepeatStructs() {
+func (o *openapiHandle) handleRootDirStructs(rootDir string) {
+	fileList := fileHandle{}
+	fileList.load(rootDir)
+	for _, filePath := range fileList {
+		asts := new(astHandle)
+		err := asts.load(filePath, projectModName, astLoadTypeStruct)
+		if err != nil {
+			log.Fatal(err)
+		}
+		for k, v := range asts.structs {
+			o.structs[k] = v
+		}
+		for k, v := range asts.sameStructs {
+			o.sameStructs[k] = v
+		}
+	}
+	// 项目中不添加mod名称的引入，结构体的包+结构体名称不能出现重复，否则原样输出
 	repeatStructs := map[string][]string{}
 	for k, _ := range o.structs {
 		if strings.HasPrefix(k, projectModName) {
@@ -69,7 +85,7 @@ func (o *openapiHandle) addImportStruct(v interface{}) {
 }
 
 func (o *openapiHandle) handleImportStruct() {
-	// 处理重复
+	// 注释中使用的结构体解析，去掉已经解析的结构体
 	for k, _ := range o.importStructs {
 		if o.structs[k] != nil {
 			delete(o.importStructs, k)
@@ -89,7 +105,7 @@ func (o *openapiHandle) handleImportStruct() {
 	fileModList := map[string][]string{}
 	for k, _ := range fileMap {
 		files := fileHandle{}
-		files.load(modPathMap[k], true)
+		files.load(modPathMap[k])
 		fileModList[k] = append(fileModList[k], files...)
 	}
 	for k, vList := range fileModList {
@@ -135,13 +151,13 @@ func (o *openapiHandle) handleNoStructFieldName() {
 	}
 }
 
-func (o *openapiHandle) generateRoute(routeDir string) {
+func (o *openapiHandle) generateRoute(rootDir, routeDir string) {
 	fileList := fileHandle{}
-	fileList.load(routeDir, true)
+	fileList.load(routeDir)
 	routes := map[string]map[string]interface{}{}
 	for _, filePath := range fileList {
 		asts := new(astHandle)
-		err := asts.load(filePath, projectModName, astLoadTypeRoute|astLoadTypeStruct)
+		err := asts.load(filePath, projectModName, astLoadTypeRoute)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -153,18 +169,12 @@ func (o *openapiHandle) generateRoute(routeDir string) {
 			// 增加路由引入结构体
 			o.addImportStruct(v)
 		}
-		for k, v := range asts.structs {
-			o.structs[k] = v
-		}
-		for k, v := range asts.sameStructs {
-			o.sameStructs[k] = v
-		}
 		o.routesFunc = append(o.routesFunc, asts.routesFunc...)
 	}
 	if len(routes) == 0 {
 		return
 	}
-	o.noRepeatStructs()
+	o.handleRootDirStructs(rootDir)
 	o.handleImportStruct()
 	o.handleNoStructFieldName()
 	if o.t.Paths == nil {

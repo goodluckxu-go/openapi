@@ -15,7 +15,7 @@ func GenerateOpenAPI(rootDir, routeDir, docPath, outDir, ginGenerateRouteDir str
 		log.Fatal(err)
 	}
 	openapi := &openapiHandle{}
-	openapi.load(routeDir, docPath)
+	openapi.load(rootDir, routeDir, docPath)
 	if !isDir(outDir) {
 		err = os.MkdirAll(outDir, 0777)
 		if err != nil {
