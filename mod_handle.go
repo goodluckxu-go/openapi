@@ -38,6 +38,10 @@ func (m *modHandle) modAbsPath() string {
 }
 
 func (m *modHandle) parseMod(content string, isVendor bool, baseDir string) (modName string) {
+	// windows格式转linux格式
+	content = strings.ReplaceAll(content, "\r\n", "\n")
+	// mac格式转linux格式
+	content = strings.ReplaceAll(content, "\r", "\n")
 	// 获取当前mod
 	list := regexp.MustCompile("module( |\t)+(.*?)\n").FindAllStringSubmatch(content, -1)
 	if len(list) == 0 {
